@@ -1,0 +1,107 @@
+<apex:page controller="CtrlBienvenida" sidebar="false" showHeader="false" contentType="text/html">
+    <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-size: 95%;
+            }
+            .redColor {
+                color: red;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <div align="center">
+        <table style="width: 900; vertical-align: middle;">
+            <tr> <td> <br/><br/> </td> </tr>
+            <tr>
+                <td align="center">
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="600" height="130"/> <br/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="labels" align="center"> 
+                    <b>¡Bienvenido a Enseña por México!</b>
+                    <p style="text-align: justify;">
+                        Gracias por querer formar parte de Enseña por México, para nosotros  es muy gratificante recibir solicitudes de personas 
+                        interesadas en formar parte de esta iniciativa.
+                        <br/><br/>
+                        <b>Selección interna</b>
+                        <br/>
+                        Enseña por México realiza el proceso de selección en 3 etapas durante las cuales los postulantes deben demostrar ciertas 
+                        competencias para recibir una oferta y sumarse al programa.
+                        <br/><br/>
+                        <!--<b>Selección Externa</b> 
+                        <br/> 
+                        Para la convocatoria 2016 existen grandes posibilidades de que varios de los aceptados a sumarse en Enseña por México tengan 
+                        que presentar el examen de oposición. Por tal motivo, es indispensable que todos los postulantes se encuentren titulados a más 
+                        tardar el 22 de mayo. (El comunicado del examen de oposición podrás encontrarlo en la página de Enseña por México)
+                        <br/><br/> -->
+                        <apex:image id="tFlow" value="{!$Resource.TablaBienvenida}"/>
+                        <br/><br/>
+                        <b class="redColor">Importante</b>
+                        <br/><br/>
+                        El registro no forma parte del proceso de selección, toda persona que complete de manera exitosa el registro recibirá un correo 
+                        con la liga para comenzar su postulación.
+                        <br/><br/>
+                        <b>Instrucciones</b>
+                        <br/><br/>
+                        El registro consta de 6 secciones y te tomará alrededor de 15 minutos completarlo (no hay tiempo límite). Es importante que tomes 
+                        en cuenta que NO podrás guardar el avance de tu registro por lo que deberás completarlo en una sola vez, asegúrate de tener el tiempo 
+                        y los recursos necesarios para realizar tu registro de manera exitosa. Te recordamos que TODA la información que nos proporciones debe 
+                        ser comprobable y veraz en todo momento, ya que se verificará su validez. 
+                        <br/><br/>
+                        <b>1º sección – Registro</b>
+                        <br/><br/>
+                        Durante esta primera sección deberás indicarnos si ya estas titulado o tu fecha próxima de titulación.  Recuerda que todos los postulantes 
+                        deberán estar titulados a más tardar el 30 de junio de 2016 y para comprobarlo deberán contar con título, cédula o acta de examen.<br/>
+                        Todos los postulantes deberán contar con una cuenta de Skype. En caso de no contar con una puedes abrir una en la siguiente liga: www.skype.com
+                        <br/><br/>
+                        <b>2º sección – Datos académicos</b>
+                        <br/><br/>
+                        Todos los postulantes deberán tener un promedio de aprovechamiento en la universidad mínimo de 8.0  que deberá ser probado para todos aquellos que 
+                        lleguen a la tercera etapa de selección mediante un documento oficial expedido por la institución educativa.
+                        <br/><br/>
+                        <b>3º sección - Enseñanza</b>
+                        <br/><br/>
+                        Uno de los objetivos de Enseña por México es ayudar a cerrar la brecha educativa que existe en nuestro país. En esta sección deberás elegir en cual 
+                        de las 2 áreas te sientes capaz de desarrollarte inglés o matemáticas para nivel secundaria o preparatoria.
+                        <br/><br/>
+                        <b>4º sección – Información adicional sobre tu perfil </b>
+                        <br/><br/>
+                        La información proporcionada durante esta sección será utilizada con fines informativos y no de selección.
+                        <br/><br/>
+                        <b>5º sección -  Confirmación de información</b>
+                        <br/><br/>
+                        Dentro de esta sección deberás confirmar que conoces las condiciones del programa. Asimismo, a manera de firma electrónica deberás poner tu nombre 
+                        completo confirmando que la información proporcionada es válida y que estás de acuerdo con las políticas de tratamiento de tus datos personales.
+                        <br/><br/>
+                        <b>Aviso de privacidad</b>
+                        <br/><br/>
+                        Enseña por México, con domicilio en Ámsterdam 46-302  colonia Hipódromo, delegación Cuauhtémoc, 06100, México, D.F. es responsable de recabar sus 
+                        datos personales, del uso que se le dé a los mismos y de su protección. Su información personal será utilizada para el proceso de reclutamiento y 
+                        selección de Enseña por México.
+                        Para las finalidades antes mencionadas, requerimos obtener datos personales de identificación así como curriculares. Usted tiene derecho de acceder, 
+                        rectificar y cancelar sus datos personales, así como de oponerse al tratamiento de los mismos o revocar el consentimiento que para tal fin nos haya otorgado, 
+                        a través de los procedimientos que hemos implementado.
+                        Para conocer dichos procedimientos, los requisitos y plazos, se puede poner en contacto con nuestro departamento de datos personales en Ámsterdam 46-302  
+                        colonia Hipódromo, delegación Cuauhtémoc, 06100, México, D.F. o al correo electrónico alberto@ensenapormexico.org.
+                        Asimismo, le informamos que sus datos personales pueden ser transferidos y tratados dentro y fuera del país, por personas distintas a esta organización. 
+                        En ese sentido, su información puede ser compartida con la red internacional de Teach for All. Si usted no manifiesta su oposición para que sus datos personales
+                        sean transferidos, se entenderá que ha otorgado su consentimiento para ello.
+
+                    </p>
+                    <p align="right" style="font-size: x-small;"> Fecha última actualización 04/12/2013</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <br/><br/><apex:commandButton value="Continuar" action="{!entrarEvaluacion}"/>
+                </td>
+            </tr>
+            <tr> <td> <br/><br/><br/><br/><br/><br/> </td> </tr>
+        </table>
+        </div>
+    </apex:form>
+</apex:page>

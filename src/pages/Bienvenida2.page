@@ -1,0 +1,74 @@
+<apex:page controller="CtrlBienvenida2" sidebar="false" showHeader="false" contentType="text/html">
+     <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-size: 95%;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <div align="center">
+            <table style="width: 900; vertical-align: middle;">
+                <tr> <td> <br/><br/> </td> </tr>
+                <tr>
+                    <td align="center">
+                        <apex:image id="theImage" value="{!$Resource.Logo}" width="600" height="130"/> <br/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labels" align="center"> 
+                        <b>¡Bienvenido a la primera etapa!</b>
+                        <p style="text-align: justify;">
+                            El siguiente cuestionario es la primera etapa del proceso de reclutamiento. Toda la información que nos proporciones debe ser comprobable 
+                            y veraz en todo momento, ya que de pasar a las siguientes etapas estaremos comprobando su validez.
+                            <br/><br/>
+                            <apex:image id="tFlow" value="{!$Resource.TablaPEtapa}"/>
+                            <br/><br/>
+                            <b>Instrucciones</b>
+                            <br/><br/>
+                            El cuestionario consta de 4 secciones y te tomará alrededor de 60 minutos completarlo (no hay tiempo límite). Es importante que tomes en cuenta 
+                            que NO podrás guardar el avance de tu postulación por lo que deberás completarla en una sola vez, asegúrate de tener el tiempo y los recursos necesarios
+                             para realizar tu postulación de manera exitosa. 
+                            <br/><br/>
+                            <b>1º sección – Actividades extracurriculares</b>
+                            <br/><br/>
+                            Enseña por México está interesado en conocer las diferentes actividades en las que te has involucrado a lo largo de tu vida. Selecciona las dos actividades 
+                            que te parezcan más significativas y comparte con nosotros tus experiencias, tus actividades, los retos y los resultados que lograste.
+                            <br/><br/>
+                            <b>2º sección – Experiencia trabajando en proyectos</b>
+                            <br/><br/>
+                            Enseña por México busca personas pro-activas que hayan estado involucradas en diferentes proyectos. Dentro de esta sección deberás elegir alguna actividad en 
+                            la que hayas participado y que sea prueba de tu dinamismo y compromiso con el proyecto.
+                            <br/><br/>
+                            <b>3º sección - Tu perfil</b>
+                            <br/><br/>
+                            En esta sección contestarás diferentes preguntas que nos ayudarán a definir si tu perfil coincide con los intereses y objetivos del programa. Si aún no conoces 
+                            nuestra misión, visión y actividades que realizarás en caso de ser seleccionado, te invitamos a que consultes nuestra página de internet: www.ensenapormexico.org
+                            <br/><br/>
+                            <b>4º sección – Confirmación de información</b>
+                            <br/><br/>
+                            Es necesario que en esta sección confirmes que estás enterado y aceptas los términos y condiciones del programa.
+                            <br/><br/><br/>
+                            <b>Aviso de privacidad</b>
+                            <br/><br/>
+                            Enseña por México, con domicilio en Ámsterdam 46-302  colonia Hipódromo, delegación Cuauhtémoc, 06100, México, D.F. es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección. Su información personal será utilizada para el proceso de reclutamiento y selección de Enseña por México.
+                            Para las finalidades antes mencionadas, requerimos obtener datos personales de identificación así como curriculares. Usted tiene derecho de acceder, rectificar y cancelar sus datos personales, así como de oponerse al tratamiento de los mismos o revocar el consentimiento que para tal fin nos haya otorgado, a través de los procedimientos que hemos implementado.
+                            Para conocer dichos procedimientos, los requisitos y plazos, se puede poner en contacto con nuestro departamento de datos personales en Ámsterdam 46-302  colonia Hipódromo, delegación Cuauhtémoc, 06100, México, D.F. o al correo electrónico alberto@ensenapormexico.org.
+                            Asimismo, le informamos que sus datos personales pueden ser transferidos y tratados dentro y fuera del país, por personas distintas a esta organización. En ese sentido, su información puede ser compartida con la red internacional de Teach for All. Si usted no manifiesta su oposición para que sus datos personales sean transferidos, se entenderá que ha otorgado su consentimiento para ello.
+
+                        </p>
+                        <p align="right" style="font-size: x-small;"> Fecha última actualización 04/12/2013</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <br/><br/><apex:commandButton value="Continuar" action="{!continuar}"/>
+                    </td>
+                </tr>
+                <tr> <td> <br/><br/><br/><br/><br/><br/> </td> </tr>
+            </table>
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,70 @@
+<apex:page controller="CtlrPreEvaluacion" sidebar="false" tabStyle="Contact" contentType="text/html">
+    <head>
+        <style type="text/css">
+        A:link {
+            text-decoration: none
+        }
+        
+        A:visited {
+            text-decoration: none
+        }
+        
+        .tabla {
+            border: 0px;
+        }
+        
+        .encabezado {
+            background-color: #BDBDBD;
+            font-size: small;
+            font-weight: bold;
+            padding: 4px;
+            border: 0px;
+        }
+        
+        .inputs {
+            border-left: 0px;
+            border-right: 0px;
+            border-top: 0px;
+            border-bottom-color: #D8D8D8;
+        }
+        
+        .labels {
+            color: #443E46;
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 95%;
+        }
+        
+        .gralText {
+            font-size: 95%;
+            font-family: Arial;
+        }
+        </style>
+    </head>
+    <apex:form id="frm" styleClass="gralText">
+        <table style="width: 100%;" border="">
+            <tr>
+                <td>
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="200" height="60" /> <br />
+                </td>
+            </tr>
+        </table>
+        <apex:pageBlock >
+            <apex:pageMessages id="pageMessages" escape="false" />
+            <apex:pageMessage summary="Todos los postulantes deberán estar titulados a más tardar el 30 de junio y comprobarlo 
+            mediante título, cédula, constancia de trámite de titulación expedido por la universidad o acta de examen (transcript, cardex, 
+            historial académico, listado de materias no son aceptados)" severity="info" strength="1" escape="false" />
+            <apex:pageBlockSection id="pBDatos" title="Información">
+                <apex:inputField label="¿Estás titulado?" value="{!pRevision.est_s_titulado__c}">
+                    <apex:actionSupport event="onchange" rerender="pBDatos" />
+                </apex:inputField>
+
+                <apex:inputField label="Fecha aproximada de titulación: " value="{!pRevision.Fecha_de_egreso_o_titulaci_n__c}"
+                    rendered="{!pRevision.est_s_titulado__c == 'No' || pRevision.est_s_titulado__c == 'En trámite'}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Continuar" action="{!validaFecha}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

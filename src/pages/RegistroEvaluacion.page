@@ -1,0 +1,285 @@
+<apex:page controller="CtlrRegistroEvaluacion" sidebar="false" tabStyle="Contact" contentType="text/html">
+    <head>
+        <style type="text/css">
+            A:link {text-decoration:none}
+            A:visited {text-decoration:none}
+            .tabla {
+                border: 0px;
+            }
+            .encabezado {
+                background-color: #BDBDBD;
+                font-size: small;
+                font-weight: bold;
+                padding: 4px;
+                border: 0px;
+            }
+            .inputs {
+                border-left: 0px;
+                border-right: 0px;
+                border-top: 0px;
+                border-bottom-color: #D8D8D8;
+            }
+            .labels {
+                color: #443E46;
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 95%;
+            }
+            .gralText {
+                font-size: 95%;
+                font-family: Arial;
+            }
+        </style>
+    </head>
+    <c:datepickerextend startYear="1984" endYear="1995"/>
+    <apex:form id="frm" styleClass="gralText">
+        <table style="width: 100%;" border="">
+                <tr>
+                <td >
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="200" height="60"/> <br/>
+                </td>
+            </tr>
+        </table>
+        <apex:pageMessage summary="Tu evaluación ya ha sido enviada!" severity="INFO" strength="3" rendered="{!verDuplicado}"/>
+        <div style="font-size: 95%;font-family: Arial;">        
+        <apex:pageBlock id="pBDatos" rendered="{!!verDuplicado}">
+            <apex:pageMessages id="pageMessages" escape="false" />
+            
+            <apex:pageMessage summary="¿Qué es liderazgo para Enseña por México?  Es la capacidad de influir en una persona o en un grupo de personas a actuar de 
+                cierta manera para lograr un bien o una mejora común. <br/>Estamos interesados en tus experiencias extracurriculares, incluyendo grupos estudiantiles, 
+                organizaciones deportivas, voluntariados, asociaciones civiles, etc.
+                <br/>Elige 2 actividades que te parezcan significativas y que consideres un ejemplo de tu liderazgo." 
+                severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Actividades Extracurriculares" id="bsActEx">
+                <apex:inputField label="Nombre del grupo u organización (1) *" value="{!primeraEv.Nombre_del_grupo_u_organizaci_n_1__c}"/>
+                <apex:inputField label="Nombre del grupo u organización (2) *" value="{!primeraEv.Nombre_del_grupo_u_organizaci_n_2__c}"/>
+                <apex:inputField label="Tipo de grupo u organización (1) *" value="{!primeraEv.Tipo_de_grupo_u_organizaci_n_1__c}"/>
+                <apex:inputField label="Tipo de grupo u organización (2) *" value="{!primeraEv.Tipo_de_grupo_u_organizaci_n_2__c}"/>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (1) *"/>
+                    <apex:inputField label="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (1) *" 
+                        value="{!primeraEv.CuentanosSobreGrupouOrganizacion1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (2) *"/>
+                    <apex:inputField label="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (2) *" 
+                        value="{!primeraEv.CuentanosSobreGrupouOrganizacion2__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (1) *"/>
+                    <apex:inputField label="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (1) *" value="{!primeraEv.Actividad_como_lider_de_un_grupo_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (2) *"/>
+                    <apex:inputField label="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (2) *" value="{!primeraEv.Actividad_como_lider_de_un_grupo_2__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputField label="¿Cómo consideras que fue tu desempeño como líder? (1) *" value="{!primeraEv.Desempe_o_como_l_der_1__c}"/>
+                <apex:inputField label="¿Cómo consideras que fue tu desempeño como líder? (2) *" value="{!primeraEv.Desempe_o_como_l_der_2__c}"/>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Justifica tu respuesta con base en los resultados obtenidos (1) *"/>
+                    <apex:inputField label="Justifica tu respuesta con base en los resultados obtenidos (1) *" value="{!primeraEv.Justifica_tu_respuesta_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Justifica tu respuesta con base en los resultados obtenidos (2) *"/>
+                    <apex:inputField label="Justifica tu respuesta con base en los resultados obtenidos (2) *" value="{!primeraEv.Justifica_tu_respuesta_2__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputField label="¿Cómo te involucraste en este grupo u organización? (1) *" value="{!primeraEv.ComoInvolucrasteOrganizacion1__c}"/>
+                <apex:inputField label="¿Cómo te involucraste en este grupo u organización? (2) *" value="{!primeraEv.ComoInvolucrasteOrganizacion2__c}"/>
+                
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuéntanos algún reto que hayas tenido que enfrentar durante la actividad. (1)? *"/>
+                    <apex:inputField value="{!primeraEv.Describe_un_reto_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuéntanos algún reto que hayas tenido que enfrentar durante la actividad. (2)? *"/>
+                    <apex:inputField value="{!primeraEv.Describe_un_reto_2__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <!--<apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Qué fue lo primero que pasó por tu mente al enfrentar el reto? ¿Qué fue lo que sentiste? (1)*"/>
+                    <apex:inputField value="{!primeraEv.Qu_hiciste_para_superar_la_situaci_n_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Qué fue lo primero que pasó por tu mente al enfrentar el reto? ¿Qué fue lo que sentiste? (2)*"/>
+                    <apex:inputField value="{!primeraEv.Qu_hiciste_para_superar_la_situaci_n_2__c}"/>
+                </apex:pageBlockSectionItem> -->
+                
+                <apex:inputField label="¿Superaste el reto (1)? *" value="{!primeraEv.SuperasteReto__c}">
+                    <apex:actionSupport event="onchange" rerender="bsActEx" />
+                </apex:inputField>
+                <apex:inputField label="¿Superaste el reto (2)? *" value="{!primeraEv.Superaste_reto_2__c}">
+                    <apex:actionSupport event="onchange" rerender="bsActEx" />
+                </apex:inputField>
+                
+                <apex:inputField label="¿Qué hiciste para superar el reto (1)? *" value="{!primeraEv.QueHicisteSuperarReto__c}" 
+                    rendered="{!primeraEv.SuperasteReto__c == 'Si'}"/>
+                <apex:inputField label="¿Qué impidió que superaras el reto en su totalidad (1)? *" value="{!primeraEv.QueimpidioSuperarRetoTotalidad__c}" 
+                    rendered="{!primeraEv.SuperasteReto__c == 'Parcialmente'}"/>
+                <apex:inputField label="¿Qué impidió que superaras el reto (1)? *" value="{!primeraEv.QueImpidioSuperarasReto__c}" 
+                    rendered="{!primeraEv.SuperasteReto__c == 'No'}"/>
+                <apex:pageBlockSectionItem rendered="{!primeraEv.SuperasteReto__c != '' && primeraEv.Superaste_reto_2__c == ''}">
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:inputField label="¿Qué hiciste para superar el reto (2)? *" value="{!primeraEv.QueHicisteSuperarReto2__c}" 
+                    rendered="{!primeraEv.Superaste_reto_2__c == 'Si'}"/>
+                <apex:inputField label="¿Qué impidió que superaras el reto (2)? *" value="{!primeraEv.QueImpidioSuperarasReto2__c}" 
+                    rendered="{!primeraEv.Superaste_reto_2__c == 'No'}"/>
+                <apex:inputField label="¿Qué impidió que superaras el reto en su totalidad (2)? *" value="{!primeraEv.QueimpidioSuperarRetoTotalidad2__c}" 
+                    rendered="{!primeraEv.Superaste_reto_2__c == 'Parcialmente'}"/>
+                
+                
+                <!--<apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuáles fueron los resultados de la decisión que tomaste (1)? *"/>
+                    <apex:inputField value="{!primeraEv.Reacci_n_al_Reto_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuáles fueron los resultados de la decisión que tomaste (2)? *"/>
+                    <apex:inputField value="{!primeraEv.Reacci_n_al_Reto_2__c}"/>
+                </apex:pageBlockSectionItem> -->
+                
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuáles fueron los resultados de tus acciones? ¿Por qué? (1)*"/>
+                    <apex:inputField value="{!primeraEv.Resultados_de_tus_decisiones_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuáles fueron los resultados de tus acciones? ¿Por qué? (2)*"/>
+                    <apex:inputField value="{!primeraEv.Resultados_de_tus_decisiones_2__c}"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageMessage summary="Selecciona un proyecto relevante en el que hayas estado involucrado y que consideres fue un reto alcanzar su cumplimiento. 
+                (Valorando su duración y su relevancia)." severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Experiencia en Proyectos" columns="1">
+                <apex:outputPanel id="datosPer">
+                    <table width="100%" cellspacing="0" cellpadding="0">
+                        <tr style="border: 1px;">
+                            <td width="45%" align="right">
+                                <apex:outputLabel value="Cuéntanos sobre un proyecto en el que hayas participado activamente (proyecto de tesis, intervención social o de voluntariado, 
+                                prácticas profesionales, proyecto escolar, proyecto personal). *" styleClass="labels"/> <br/>                        
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="Contestando las siguientes preguntas. " styleClass="labels"/> <br/> 
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Cuáles eran los objetivos del proyecto? " styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Cuánto tiempo tomó la planificación del proyecto? " styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Cuál era tu responsabilidad dentro del equipo? " styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Alcanzaste tus metas y cumpliste en tiempo y forma con tus actividades? " 
+                                styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="Justifica tus respuestas. " styleClass="labels"/> <br/>
+                            </td>
+                            <td width="55%">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:pageBlockSectionItem helpText="Máximo 3000 caracteres">
+                                    <apex:inputTextArea value="{!primeraEv.Redaccion__c}" rows="3" cols="80"/>
+                                </apex:pageBlockSectionItem>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Tu Perfil" id="per">
+                <apex:inputField label="¿Has realizado servicio como voluntario alguna vez en tu vida? *" value="{!primeraEv.Servicio_como_voluntario__c}">
+                    <apex:actionSupport event="onchange" rerender="per" />
+                </apex:inputField>
+                
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál es el principal problema de México? *"/>
+                    <apex:inputField label="¿Cuál es el principal problema de México? *" value="{!primeraEv.problemas_del_sistema_educativo_Mexicano__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:inputField label="¿Cómo te involucraste con la institución donde realizaste tu voluntariado? *" 
+                    value="{!primeraEv.InvolucrasteInstitucionVoluntariado__c}" rendered="{!primeraEv.Servicio_como_voluntario__c == 'Si'}"/>
+                <apex:pageBlockSectionItem rendered="{!primeraEv.Servicio_como_voluntario__c != 'Si'}">
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Hasta qué punto crees que las acciones de las ONGs puedan contribuir a la mejora del país? Explica tu respuesta. *"/>
+                    <apex:inputField value="{!primeraEv.AccionesONG__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputPanel id="dats2" rendered="{!primeraEv.Servicio_como_voluntario__c == 'Si'}">
+                    <apex:outputLabel value="¿Cuánto tiempo estuviste involucrado en esta actividad? * " styleClass="labels"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:inputField value="{!primeraEv.TiempoInvolucradoActividad__c}"/>
+                    <apex:inputField label="" value="{!primeraEv.PeriodoActividad__c}"/> 
+                </apex:outputPanel>
+                <apex:pageBlockSectionItem rendered="{!primeraEv.Servicio_como_voluntario__c != 'Si'}">
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Máximo 3000 caracteres">
+                    <apex:outputLabel value="A manera de ensayo dinos ¿por qué quieres forma parte en Enseña por México? *"/>
+                    <apex:inputField value="{!primeraEv.Razones_para_querer_formar_parte_de_ExM__c}"/>
+                </apex:pageBlockSectionItem>    
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Confirmación de Información" columns="1">
+                <apex:outputPanel id="datosPer">
+                    <table width="100%" cellspacing="0" cellpadding="0" class="labels">
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.HeLeidoDetenidamenteQueTrata__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* He leído detenidamente de qué trata el programa." styleClass="labels"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.EstoyConscienteAceptacion__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* Estoy conciente que de ser aceptado tras el proceso de selección, 
+                                    mi principal labor será impartir clases en una escuela pública dentro de una zona marginada." styleClass="labels"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.DeSerAceptadoPosibleDebaMudarme__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* Estoy conciente que de ser aceptado estaré dispuesto a cambiar mi lugar de residencia." 
+                                    styleClass="labels"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.ConfirmacionDeInformacion__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* Confirmo que la información proporcionada en este formulario me pertenece, 
+                                    es auténtica y comprobable." styleClass="labels"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" cellspacing="0" cellpadding="0">
+                        <tr style="border: 1px;">
+                            <td width="50%" align="right">
+                                <apex:outputLabel value="Tu nombre completo a manera de firma electrónica * " styleClass="labels"/>&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td width="50%">
+                                <apex:inputText size="50" value="{!primeraEv.NombreManeraFirmaElectronica__c}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1">
+                <apex:outputPanel >
+                <div align="center">
+                    <hr color="#EEE9F0" size="1" width="100%"/><br/>
+                    <apex:commandButton value="Enviar Solicitud" action="{!guardaContacto}"/>
+                </div>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </div>
+        <apex:actionStatus id="StatusProcess">
+            <apex:facet name="start">
+                <c:StatusModal Message="Procesando..." Project="Primera Evaluación"/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

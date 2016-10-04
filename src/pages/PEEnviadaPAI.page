@@ -1,0 +1,35 @@
+<apex:page sidebar="false" showHeader="false" contentType="text/html">
+    <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 18;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <table style="width: 100%;">
+            <tr>
+                <td><br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br /></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:image id="theImage" value="{!$Resource.LogoPAI}" width="190" height="200" /> <br /> <br />
+                </td>
+            </tr>
+            <tr>
+                <td class="labels" align="center">Tú registro ha sido enviado con éxito.</td>
+            </tr>
+            <tr>
+                <td> <br /><br /><br /><br /><br /><br /> </td>
+            </tr>
+        </table>
+    </apex:form>
+</apex:page>

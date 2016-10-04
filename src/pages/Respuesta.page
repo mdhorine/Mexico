@@ -1,0 +1,41 @@
+<apex:page Controller="CtlrRespuesta" sidebar="false" showheader="false" tabStyle="Contact" contentType="text/html">
+    <apex:form >
+        <apex:pageBlock title="Tercera etapa de selección – Centro de evaluación">
+            <apex:pageBlockSection title="Centro de evaluación" columns="1">
+                <apex:pageMessages id="pageMessages" escape="false" />
+                <!--  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Me gustaría tener una llamada con algún miembro del equipo *"/>
+                    <apex:selectList value="{!valor1}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="--Ninguno--"/>
+                        <apex:selectOption itemValue="Si" itemLabel="Si"/>
+                        <apex:selectOption itemValue="No" itemLabel="No"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+               
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha para realizar mi centro de evaluación *"/>
+                    <apex:selectList value="{!valor2}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="--Ninguno--"/>
+                        <apex:selectOption itemValue="11 de abril" itemLabel="11 de abril"/>
+                        <apex:selectOption itemValue="Segunda ronda (Mayo - Junio)" itemLabel="Segunda ronda (Mayo - Junio)"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Lugar para realizar mi centro de evaluación *"/>
+                    <apex:selectList value="{!valor3}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="--Ninguno--"/>
+                        <apex:selectOption itemValue="Monterrey, Nuevo León" itemLabel="Monterrey, Nuevo León"/>
+                        <apex:selectOption itemValue="León, Guanajuato" itemLabel="León, Guanajuato"/>
+                        <apex:selectOption itemValue="Ciudad de México" itemLabel="Ciudad de México"/>
+                        <apex:selectOption itemValue="San Andrés Cholula, Puebla" itemLabel="San Andrés Cholula, Puebla"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Enviar Respuesta" action="{!guardaContacto}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,117 @@
+<apex:page controller="CtrlWelcome" sidebar="false" showHeader="false" contentType="text/html">
+    <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-size: 95%;
+            }
+        </style>
+    </head>
+    <apex:form >
+    	<div align="center">
+        <table style="width: 900; vertical-align: middle;">
+            <tr> <td> <br/><br/> </td> </tr>
+            <tr>
+                <td align="center">
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="400" height="130"/> <br/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="labels" align="center"> 
+                	<b>Welcome to Teach for Mexico!</b>
+					<p style="text-align: justify;">
+						Thank you for your interest in being part of Teach for Mexico, it is gratifying to receive applications from people interested in joining 
+						this new and exciting educational initiative.
+						<br/><br/>
+						The following questionnaire is the first stage of the recruitment process. All information you provide must be verifiable and accurate 
+						at all times since we will be checking its validity as we go along the recruitment process.
+						<br/><br/>
+						<b>Instructions</b>
+						<br/><br/>
+						The questionnaire consists of 9 sections and will take you about 60 minutes to complete (there is no time limit). Please note you will 
+						not be able to save the progress of your application so you must complete it in one go. Please make sure you have the time and the necessary 
+						resources to complete your application successfully.
+						<br/><br/>
+						Questions may be answered in English, however you must possess good oral and written command of Spanish.
+						<br/><br/>
+						<b>Section 1 - Registration</b>
+						<br/><br/>
+						<u>You must provide your full name and the country where you studied your college degree.</u>
+						<br/><br/>
+						<b>Section 2 - Personal information	</b>
+						<br/><br/>
+						All applicants must have a Skype account. If you do not have one you can get it for free at: www.skype.com
+						<br/><br/>
+						<b>Section 3 - Academic information</b>
+						<br/><br/>
+						Please consider that in order to be a successful applicant you must be a college graduate or finish all your undergraduate coursework no 
+						later than the 2014 spring term.
+						<br/><br/>
+						All applicants must have a minimum GPA of 8.0 in the Mexican scale (international applicants should consult equivalent grades). At the third 
+						stage of the selection process, you are expected to show an official document issued by your university as a proof of your grades.
+						<br/><br/>
+						<b>Section 4 - Teaching</b>
+						<br/><br/>
+						One of Teach for Mexico's goals is to help close the achievement gap in our country. In this section you must choose which subject or 
+						subjects among the following you are willing to teach in case of being admitted: English, Math, Natural Sciences, Social Sciences, 
+						Spanish (reading and writing).
+						<br/><br/>
+						<b>Section 5 - Extracurricular activities</b>
+						<br/><br/>
+						Teach for Mexico is interested in the different activities in which you have engaged throughout your life. Describe a couple of activities 
+						that you consider the most significant to share with us. We want to know about your experiences, your actions and the results you achieved.
+						<br/><br/>
+						<b>Section 6 - Challenges</b>
+						<br/><br/>
+						Tell us about an activity that you consider has been a challenge in your life.
+						<br/><br/>
+						<b>Section 7 - Experience with projects</b>
+						<br/><br/>
+						Teach for Mexico seeks proactive persons who have been involved in different projects. In this section you must describe an experience in 
+						which you participated that may be proof of your dynamism and commitment to our project.
+						<br/><br/>
+						<b>Section 8 - Your Profile</b>
+						<br/><br/>
+						In this section you will answer different questions that will help us determine if your profile matches the interests and objectives of the 
+						program. If you are still not familiar with our mission, vision and the activities you will undertake if selected, we invite you to refer to 
+						our website : www.ensenapormexico.org
+						<br/><br/>
+						<b>Section 9 - English proficiency</b>
+						<br/><br/>
+						This section will only be relevant for people who are not native English speakers.
+						<br/><br/>
+						<b>Section 10 - Additional Information</b>
+						<br/><br/>
+						We want to know how you heard from us.
+						<br/><br/>
+						<b>Section 11 - Confirm your information</b>
+						<br/><br/>
+						You will have to enter your full name as a way to confirm that all your information is valid and that you agree with our personal 
+						information policies. 
+						<br/><br/>
+						<b>Privacy Notice</b>
+						<br/><br/>
+						Teach for All Mexico, AC, located in Amsterdam 46 - 302, Col. Hipódromo, Del. Cuauhtémoc, 06100, Mexico City, DF, is responsible for collecting, 
+						using and protecting personal data. Your personal information will be used for recruitment and selection purposes by the Teach for Mexico program.
+						For the above purposes, we need to obtain personal information and curricular data. You have the right to access, rectify and delete your personal 
+						data as well as to oppose the processing thereof or revoke the consent that you have given us for these purposes, through the procedures that apply.
+						For enquiries related to these procedures, requirements and deadlines, you can contact our privacy policy department in Amsterdam 46-302 
+						Col. Hipódromo, Del. Cuauhtémoc, 06100, Mexico, DF or through email: alberto@ensenapormexico.org .
+						AWe also inform you that your personal data can be transferred and treated within and outside the country by people not belonging to this 
+						organization. In that sense, your information may be shared with the Teach for All international network. If you do not express any objections 
+						for your personal data being transferred, it is deemed you have given your consent.
+					</p>
+					<p align="right" style="font-size: x-small;"> Last Update 04/12/2013</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <br/><br/><apex:commandButton value="Continue" action="{!entrarEvaluacion}"/>
+                </td>
+            </tr>
+            <tr> <td> <br/><br/><br/><br/><br/><br/> </td> </tr>
+        </table>
+        </div>
+    </apex:form>
+</apex:page>

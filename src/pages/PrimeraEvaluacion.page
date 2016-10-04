@@ -1,0 +1,557 @@
+<apex:page controller="CtrlPrimeraEvaluacion" sidebar="false" tabStyle="Contact" contentType="text/html">
+    <head>
+        <style type="text/css">
+            A:link {text-decoration:none}
+            A:visited {text-decoration:none}
+            .tabla {
+                border: 0px;
+            }
+            .encabezado {
+                background-color: #BDBDBD;
+                font-size: small;
+                font-weight: bold;
+                padding: 4px;
+                border: 0px;
+            }
+            .inputs {
+                border-left: 0px;
+                border-right: 0px;
+                border-top: 0px;
+                border-bottom-color: #D8D8D8;
+            }
+            .labels {
+                color: #443E46;
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 95%;
+            }
+            .gralText {
+                font-size: 95%;
+                font-family: Arial;
+            }
+        </style>
+    </head>
+    <c:datepickerextend startYear="1984" endYear="1995"/>
+    <apex:form id="frm" styleClass="gralText">
+        <table style="width: 100%;" border="">
+            <tr>
+                <td >
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="200" height="60"/> <br/>
+                </td>
+            </tr>
+        </table>
+        
+        <apex:outputPanel rendered="{!verDuplicado}">
+            <br/><br/><br/>
+            <apex:pageMessage severity="INFO" strength="5"
+            summary="Enseña por México ya cuenta con un registro que coincide con tus datos, lamentablemente no puedes ingresar un segundo registro. Si esta información no coincide contigo, escribe a hilario@ensenapormexico.org"/>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!!verDuplicado}">
+        <div style="font-size: 95%;font-family: Arial;">
+        <apex:pageBlock title="Primera Evaluación" >
+            <apex:pageMessages id="pageMessages" escape="false" />
+            <apex:pageBlockSection title="Registro" columns="2" > 
+                <apex:inputField required="true" label="Nombre" value="{!contacto.FirstName}" styleClass="gralText"/>
+                <apex:inputField required="true" label="Apellido paterno" value="{!contacto.LastName}" styleClass="gralText"/>
+                <apex:inputField required="true" label="Apellido materno" value="{!contacto.ApellidoMaterno__c}" styleClass="gralText"/>
+                <apex:inputField required="true" label="¿País de estudios de licenciatura?" value="{!primeraEv.PaisControlador__c}" styleClass="gralText">
+                    <apex:actionSupport event="onchange" rerender="frm" action="{!metodoVacio}"/>
+                </apex:inputField>
+                <apex:outputPanel />
+                 <!--<apex:inputField required="true" label="Especifica País de Estudios" value="{!contacto.PaisLicenciaturaOtro__c}" 
+                    rendered="{!primeraEv.PaisControlador__c == 'Otro'}"/>
+                <apex:inputHidden value="{!contacto.PaisEstudiosLicenciatura__c}" id="theHiddenInput"/>-->
+            </apex:pageBlockSection>
+            
+           <!-- <apex:pageBlockSection columns="1" rendered="{!!continua}">
+                <apex:outputPanel >
+                <div align="center">
+                    <hr color="#EEE9F0" size="1" width="100%"/><br/>
+                    <apex:commandButton value="Continuar" action="{!validaEncabezado}" rerender="frm" status="StatusProcess"/>
+                </div>
+                </apex:outputPanel>
+            </apex:pageBlockSection>  -->
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="pBDatos" >
+            <apex:pageBlockSection title="Datos Personales" id="datosPer">
+                <apex:inputField label="Fecha de nacimiento * " value="{!contacto.Birthdate}">
+                    <c:datepickerextend startYear="1984" endYear="1995"/>
+                </apex:inputField>
+                <!-- <apex:outputPanel id="dats"> 
+                <apex:pageBlockSectionItem >-->
+                    <!-- <apex:outputLabel value="Nacionalidad * " styleClass="labels"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                    <apex:inputField label="Nacionalidad *" value="{!contacto.Nacionalidad__c}">
+                        <apex:actionSupport event="onchange" rerender="datosPer" />
+                    </apex:inputField>
+                    <apex:inputField label="Escribe Nacionalidad: *" value="{!contacto.NacionalidadExtranjera__c}" rendered="{!contacto.Nacionalidad__c == 'Extranjero'}" />
+                <!-- </apex:pageBlockSectionItem> 
+                </apex:outputPanel> -->
+                <apex:inputField label="CURP" value="{!contacto.CURP__c}"/>
+                <apex:inputField label="Correo electrónico * " value="{!contacto.Correo_electr_nico__c}"/>
+                <apex:inputField label="Género * "  value="{!contacto.G_nero__c}"/>
+                <apex:inputText label="Repite correo electrónico * " value="{!textCorreo}"/>
+                <!--<apex:inputField label="¿En qué país esta tu dirección permanente? *" value="{!contacto.PaisDireccionPermanente__c}" 
+                    rendered="{!primeraEv.PaisControlador__c == 'EUA' || primeraEv.PaisControlador__c == 'Otro'}">
+                    <apex:actionSupport event="onchange" rerender="pBDatos" />
+                </apex:inputField> -->
+                <!--<apex:inputField label="País de dirección permanente *" value="{!contacto.PaisCP__c}" rendered="{!contacto.PaisDireccionPermanente__c == 'Otro'}"/> -->
+                <apex:inputField label="Código postal *" value="{!contacto.CodigoPostalTxt__c}" />
+                <!-- <apex:outputPanel rendered="{!contacto.PaisDireccionPermanente__c == 'México' || primeraEv.PaisControlador__c == 'México'}">
+                    <div align="center" >
+                    <table >
+                        <tr>
+                            <td align="right">
+                                <apex:outputLabel value="Código postal * " styleClass="labels"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <apex:inputText value="{!cp}"/> &nbsp;&nbsp;
+                                <apex:commandButton value="Buscar" action="{!cargaCP}" rerender="frm" status="StatusProcess"/>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                </apex:outputPanel> -->
+            <!-- </apex:pageBlockSection>
+            <hr color="#EEE9F0" size="1" width="100%"/>
+            <apex:pageMessage summary="Selecciona el Código Postal que te corresponda." severity="info" strength="1" escape="false" rendered="{!lCP.size > 0}"/>
+            <apex:pageMessage summary="No se encontraron Resultados del Código Postal ingresado, intente de nuevo." severity="warning" strength="1" escape="false" 
+                rendered="{!lCP.size == 0 && cp != '' && codPostal.Estado__c == null}"/>
+            
+            <apex:pageBlockTable value="{!lCP}" var="item" rendered="{!lCP.size > 0}">
+                <apex:column headerValue="Seleccionar" >
+                    <apex:inputField value="{!item.Seleccionar__c}">
+                        <apex:actionSupport event="onclick" rerender="pBDatos" action="{!agregaCP}" status="StatusProcess">
+                            <apex:param name="idCPSel" value="{!item.Id}" assignTo="{!idCPSel}"/>
+                        </apex:actionSupport>
+                    </apex:inputField>
+                </apex:column>
+                <apex:column value="{!item.Name}"/>
+                <apex:column value="{!item.Localidad_Colonia__c}"/>
+                <apex:column value="{!item.Municipio_Delegacion__c}"/>
+                <apex:column value="{!item.Estado__c}"/>
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockSection > -->
+                <apex:inputText Label="Calle * " value="{!contacto.Calle__c}"/>
+                <apex:inputField label="Colonia * " value="{!contacto.Localidad_Colonia__c}"/>
+                <!-- <apex:outputField label="Estado * " value="{!codPostal.Estado__c}" 
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'México' || primeraEv.PaisControlador__c == 'México'}"/> -->
+                <!-- <apex:inputField label="Estado * " value="{!contacto.EstadoCPEUA__c}" rendered="{!contacto.PaisDireccionPermanente__c == 'Estados Unidos'}"/> -->
+                <apex:inputField label="Estado * " value="{!contacto.EstadoCPMex__c}"/>
+                <!-- <apex:inputField label="Estado * " value="{!contacto.Estado__c}" rendered="{!contacto.PaisDireccionPermanente__c == 'Otro'}"/> -->
+                <apex:inputField label="Número exterior * " value="{!contacto.NumeroExterior__c}"/>
+                <!-- <apex:outputField label="Municipio o Delegación * " value="{!codPostal.Municipio_Delegacion__c}" 
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'México' || primeraEv.PaisControlador__c == 'México'}"/> -->
+                <!-- <apex:inputField label="Condado *" value="{!contacto.CiudadCP__c}" rendered="{!contacto.PaisDireccionPermanente__c == 'Estados Unidos'}"/> -->
+                <apex:inputField label="Municipio o Delegación *" value="{!contacto.CiudadCP__c}"/>
+                <apex:inputField label="Interior " value="{!contacto.NumeroInterior__c}"/>
+                <!-- <apex:inputField label="Ciudad *" value="{!contacto.CiudadCP__c}" rendered="{!contacto.PaisDireccionPermanente__c == 'Otro'}"/> -->
+                <!-- <apex:outputField label="País *" value="{!codPostal.Pais__c}"
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'México' || primeraEv.PaisControlador__c == 'México'}"/> -->
+                <apex:inputText label="Teléfono casa (10 dígitos) *" value="{!contacto.Tel_fono_de_casa__c}"/>
+                <!--<apex:inputText label="Teléfono casa (clave + 7 dígitos) *" value="{!contacto.Tel_fono_de_casa__c}" 
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'Estados Unidos'}"/> 
+                <apex:inputText label="Teléfono casa *" value="{!contacto.Tel_fono_de_casa__c}"
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'Otro'}"/> -->
+                <apex:inputField label="¿Hablas alguna lengua indígena? *" value="{!contacto.HablasAlgunaLenguaIndigena__c}">
+                    <apex:actionSupport event="onchange" rerender="pBDatos" />
+                </apex:inputField>
+                <apex:inputText label="Teléfono celular (10 dígitos) * " value="{!contacto.Tel_fono_celular__c}"/>
+                <!-- <apex:inputText label="Teléfono celular (clave + 7 dígitos) * " value="{!contacto.Tel_fono_celular__c}" 
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'Estados Unidos'}"/> 
+                <apex:inputText label="Teléfono celular * " value="{!contacto.Tel_fono_celular__c}" 
+                    rendered="{!contacto.PaisDireccionPermanente__c == 'Otro'}"/> -->
+                <apex:inputField label="Lengua hablada *" value="{!contacto.LenguaHablada__c}" rendered="{!contacto.HablasAlgunaLenguaIndigena__c == 'Sí'}" />
+                <apex:inputText label="Cuenta de Skype * " value="{!contacto.Cuenta_de_Skype__c}"/>
+                <apex:inputField label="Grado de dominio *" value="{!contacto.GradoDominio__c}" rendered="{!contacto.HablasAlgunaLenguaIndigena__c == 'Sí'}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageMessage summary="Para solicitar tu ingreso al programa te recordamos que debes haber concluido todas tus materias y estar 
+                titulado o en proceso de titulación a más tardar en el semestre de primavera 2015." severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Datos Académicos">
+                    
+                    <apex:inputField label="Título universitario *" value="{!primeraEv.Titulo_Universitario_1__c}"/>
+            
+                    <apex:inputField label="¿Tienes estudios de posgrado? *" value="{!primeraEv.TienesEstudioPosgrado__c}">
+                        <apex:actionSupport event="onchange" rerender="pBDatos" />
+                    </apex:inputField>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:inputText label="{!if(primeraEv.PaisControlador__c == 'EUA', 'Major *', 'Carrera *')}" value="{!primeraEv.Carrera__c}"/>
+                
+                    <apex:inputField label="Nombre del posgrado *" value="{!primeraEv.NombredelPosgrado__c}" rendered="{!primeraEv.TienesEstudioPosgrado__c == 'Sí'}" />
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:inputField label="{!if(primeraEv.PaisControlador__c == 'EUA', '¿Estás graduado? *', '¿Estás titulado? *')}" value="{!primeraEv.est_s_titulado__c}">
+                        <apex:actionSupport event="onchange" rerender="pBDatos" /> 
+                    </apex:inputField>
+                    
+                    <apex:inputField label="Título obtenido *" value="{!primeraEv.T_tulo_obtenido__c}" rendered="{!primeraEv.TienesEstudioPosgrado__c == 'Sí'}" />
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:inputField label="Fecha aproximada de titulación *" value="{!primeraEv.Fecha_de_egreso_o_titulaci_n__c}" 
+                        rendered="{!primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite'}">
+                        <c:datepickerextend startYear="2013" endYear="2019"/>
+                    </apex:inputField>
+                    
+                    <apex:inputField label="Estado donde se encuentra tu universidad *" value="{!primeraEv.EstadoUniversidad__c}"
+                        rendered="{!primeraEv.PaisControlador__c != 'Otro' && (primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c== null)}">
+                        <apex:actionSupport event="onchange" rerender="pBDatos" />
+                    </apex:inputField>
+                    
+                    <apex:inputField label="País dónde se encuentra tu universidad *" value="{!primeraEv.PaisUniversidadOtro__c}" 
+                        rendered="{!primeraEv.PaisControlador__c == 'Otro' && (primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c== null)}"/>
+                
+                    
+                    <apex:inputField label="País donde se encuentra la universidad *" value="{!primeraEv.PaisUniversidadPosgrado__c}" 
+                        rendered="{!primeraEv.TienesEstudioPosgrado__c == 'Sí'}"/>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:inputField label="Estado donde se encuentra tu universidad *" value="{!primeraEv.EstadoUniversidad__c}"
+                        rendered="{!primeraEv.PaisControlador__c != 'Otro' && (primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite')}">
+                        <apex:actionSupport event="onchange" rerender="pBDatos" />
+                    </apex:inputField>
+                    
+                    <apex:inputField label="País dónde se encuentra tu universidad *" value="{!primeraEv.PaisUniversidadOtro__c}" 
+                        rendered="{!primeraEv.PaisControlador__c == 'Otro' && (primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite')}"/>
+                    
+                    <apex:selectList label="Universidad *" id="opcUniv" value="{!idUnivSel}" size="1" style="width:320px"
+                        rendered="{!primeraEv.PaisControlador__c != 'Otro' && (primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c== null)}">
+                        <apex:selectOptions value="{!Univ}" />
+                        <apex:actionSupport event="onchange" rerender="pBDatos" />
+                    </apex:selectList>
+                    
+                    <apex:inputField label="Universidad *" value="{!primeraEv.Otra_Universidad_1__c}" rendered="{!primeraEv.PaisControlador__c == 'Otro' 
+                        && (primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c== null)}"/>
+                    
+                    
+                    <apex:inputText label="Nombre completo de la universidad *" value="{!primeraEv.NombrePostgrado__c}" 
+                        rendered="{!primeraEv.TienesEstudioPosgrado__c == 'Sí'}" />
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:selectList label="Universidad *" id="opcUniv" value="{!idUnivSel}" size="1" style="width:320px"
+                        rendered="{!primeraEv.PaisControlador__c != 'Otro' && (primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite')}">
+                        <apex:selectOptions value="{!Univ}" />
+                        <apex:actionSupport event="onchange" rerender="pBDatos" />
+                    </apex:selectList>
+                    
+                    <apex:inputField label="Universidad *" value="{!primeraEv.Otra_Universidad_1__c}" rendered="{!primeraEv.PaisControlador__c == 'Otro' 
+                        && (primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite')}"/>
+                    
+                    <apex:inputField label="Universidad *" value="{!primeraEv.Otra_Universidad_1__c}" rendered="{!idUnivSel == 'otro' 
+                        && (primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c== null)}"/>
+                    
+                    <apex:inputField label="Promedio general *" value="{!primeraEv.Promedio_general_de_aprovechamiento_1__c}"
+                        rendered="{!(primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c== null) && idUnivSel != 'otro'}"/>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:inputField label="Universidad *" value="{!primeraEv.Otra_Universidad_1__c}" 
+                        rendered="{!(idUnivSel == 'otro' && primeraEv.PaisControlador__c != 'Otro') 
+                        && (primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite')}"/>
+                    
+                    <apex:inputField label="Promedio general *" value="{!primeraEv.Promedio_general_de_aprovechamiento_1__c}"
+                        rendered="{!(primeraEv.est_s_titulado__c == 'Si' || primeraEv.est_s_titulado__c == null) && idUnivSel == 'otro'}"/>
+                    
+                    <apex:inputField label="Promedio general *" value="{!primeraEv.Promedio_general_de_aprovechamiento_1__c}"
+                        rendered="{!(primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c == 'En trámite') 
+                            && (primeraEv.PaisControlador__c == 'Otro' || idUnivSel != 'otro')}"/>
+
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                
+                    <apex:inputField label="Promedio general *" value="{!primeraEv.Promedio_general_de_aprovechamiento_1__c}"
+                        rendered="{!(primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c== 'En trámite') 
+                            && idUnivSel == 'otro' && primeraEv.PaisControlador__c == 'Otro'}"/>
+                        
+                    <apex:inputField label="Promedio general *" value="{!primeraEv.Promedio_general_de_aprovechamiento_1__c}"
+                        rendered="{!(primeraEv.est_s_titulado__c == 'No' || primeraEv.est_s_titulado__c== 'En trámite') 
+                            && idUnivSel == 'otro' && primeraEv.PaisControlador__c != 'Otro'}"/>
+                
+            </apex:pageBlockSection>
+            
+            <!-- <apex:pageMessage summary="¿Qué es liderazgo para Enseña por México?  Es la capacidad de influir en una persona o en un grupo de personas a actuar de 
+                cierta manera para lograr un bien o una mejora común. <br/>Estamos interesados en tus experiencias extracurriculares, incluyendo grupos estudiantiles, 
+                organizaciones deportivas, voluntariados, asociaciones civiles, etc.
+                <br/>Elige 2 actividades que te parezcan significativas y que consideres un ejemplo de tu liderazgo." 
+                severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Actividades Extracurriculares">
+                <apex:inputField label="Nombre del grupo u organización (1) *" value="{!primeraEv.Nombre_del_grupo_u_organizaci_n_1__c}"/>
+                <apex:inputField label="Nombre del grupo u organización (2) *" value="{!primeraEv.Nombre_del_grupo_u_organizaci_n_2__c}"/>
+                <apex:inputField label="Tipo de grupo u organización (1) *" value="{!primeraEv.Tipo_de_grupo_u_organizaci_n_1__c}"/>
+                <apex:inputField label="Tipo de grupo u organización (2) *" value="{!primeraEv.Tipo_de_grupo_u_organizaci_n_2__c}"/>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (1) *"/>
+                    <apex:inputField label="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (1) *" 
+                        value="{!primeraEv.CuentanosSobreGrupouOrganizacion1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (2) *"/>
+                    <apex:inputField label="Cuéntanos sobre el grupo u organización. ¿Qué hacían? ¿Cuáles eran las actividades y los objetivos? (2) *" 
+                        value="{!primeraEv.CuentanosSobreGrupouOrganizacion2__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (1) *"/>
+                    <apex:inputField label="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (1) *" value="{!primeraEv.Actividad_como_lider_de_un_grupo_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (2) *"/>
+                    <apex:inputField label="¿Cuál era tu papel? ¿Cuáles eran tus responsabilidades? (2) *" value="{!primeraEv.Actividad_como_lider_de_un_grupo_2__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputField label="¿Cómo consideras que fue tu desempeño como líder? (1) *" value="{!primeraEv.Desempe_o_como_l_der_1__c}"/>
+                <apex:inputField label="¿Cómo consideras que fue tu desempeño como líder? (2) *" value="{!primeraEv.Desempe_o_como_l_der_2__c}"/>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Justifica tu respuesta con base en los resultados obtenidos (1) *"/>
+                    <apex:inputField label="Justifica tu respuesta con base en los resultados obtenidos (1) *" value="{!primeraEv.Justifica_tu_respuesta_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="Justifica tu respuesta con base en los resultados obtenidos (2) *"/>
+                    <apex:inputField label="Justifica tu respuesta con base en los resultados obtenidos (2) *" value="{!primeraEv.Justifica_tu_respuesta_2__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputField label="¿Cómo te involucraste en este grupo u organización? (1) *" value="{!primeraEv.ComoInvolucrasteOrganizacion1__c}"/>
+                <apex:inputField label="¿Cómo te involucraste en este grupo u organización? (2) *" value="{!primeraEv.ComoInvolucrasteOrganizacion2__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageMessage summary="Estamos interesados en conocer más sobre tu persona. Cuéntanos un hecho o una actividad que consideres haya sido un reto en tu vida." 
+                severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Tus Retos" id="bsRetos">
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál es el mayor reto que has tenido que enfrentar? *"/>
+                    <apex:inputField label="¿Cuál es el mayor reto que has tenido que enfrentar? *" value="{!primeraEv.Describe_un_reto_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputField label="¿Superaste el reto? *" value="{!primeraEv.SuperasteReto__c}">
+                    <apex:actionSupport event="onchange" rerender="bsRetos" />
+                </apex:inputField>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Qué fue lo primero que pasó por tu mente al enfrentar el reto? ¿Qué fue lo que sentiste? *"/>
+                    <apex:inputField value="{!primeraEv.Qu_hiciste_para_superar_la_situaci_n_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputField label="¿Qué hiciste para superar el reto? *" value="{!primeraEv.QueHicisteSuperarReto__c}" 
+                    rendered="{!primeraEv.SuperasteReto__c == 'Si'}"/>
+                <apex:inputField label="¿Qué impidió que superaras el reto? *" value="{!primeraEv.QueImpidioSuperarasReto__c}" 
+                    rendered="{!primeraEv.SuperasteReto__c == 'No'}"/>
+                <apex:inputField label="¿Qué impidió que superaras el reto en su totalidad? *" value="{!primeraEv.QueimpidioSuperarRetoTotalidad__c}" 
+                    rendered="{!primeraEv.SuperasteReto__c == 'Parcialmente'}"/>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuáles fueron los resultados de la desición que tomaste? *"/>
+                    <apex:inputField label="¿Cuáles fueron los resultados de la desición que tomaste? *" value="{!primeraEv.Reacci_n_al_Reto_1__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Te sientes conforme con los resultados de tus acciones? ¿Por qué? *"/>
+                    <apex:inputField value="{!primeraEv.Resultados_de_tus_decisiones_1__c}"/>
+                </apex:pageBlockSectionItem>                
+            </apex:pageBlockSection>
+            
+            <apex:pageMessage summary="Selecciona un proyecto relevante en el que hayas estado involucrado y que consideres fue un reto alcanzar su cumplimiento. 
+                (Valorando su duración y su relevancia)." severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Experiencia en Proyectos" columns="1">
+                <apex:outputPanel id="datosPer">
+                    <table width="100%" cellspacing="0" cellpadding="0">
+                        <tr style="border: 1px;">
+                            <td width="45%" align="right">
+                                <apex:outputLabel value="De manera descriptiva cuéntanos sobre el proyecto en el que participaste. *" styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Cuáles eran los objetivos del proyecto? " styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Cuánto tiempo tomó la planificación del proyecto? " styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Cuál era tu responsabilidad dentro del equipo? " styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="¿Alcanzaste tus metas y cumpliste en tiempo y forma con tus actividades? " 
+                                styleClass="labels"/> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="Justifica tus respuestas. " styleClass="labels"/> <br/>
+                            </td>
+                            <td width="55%">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:pageBlockSectionItem helpText="Máximo 3000 caracteres">
+                                    <apex:inputTextArea value="{!primeraEv.Redaccion__c}" rows="3" cols="80"/>
+                                </apex:pageBlockSectionItem>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+             
+            <apex:pageBlockSection title="Tu Perfil" id="per">
+                <apex:inputField label="¿Has realizado servicio como voluntario alguna vez en tu vida? *" value="{!primeraEv.Servicio_como_voluntario__c}">
+                    <apex:actionSupport event="onchange" rerender="per" />
+                </apex:inputField>
+                <apex:inputField label="¿Cómo te involucraste con la institución donde realizaste tu voluntariado? *" 
+                    value="{!primeraEv.InvolucrasteInstitucionVoluntariado__c}" rendered="{!primeraEv.Servicio_como_voluntario__c == 'Si'}"/>
+                
+                <apex:outputPanel id="dats2" rendered="{!primeraEv.Servicio_como_voluntario__c == 'Si'}">
+                    <apex:outputLabel value="¿Cuánto tiempo estuviste involucrado en esta actividad? * " styleClass="labels"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:inputField value="{!primeraEv.TiempoInvolucradoActividad__c}"/>
+                    <apex:inputField label="" value="{!primeraEv.PeriodoActividad__c}"/> 
+                </apex:outputPanel>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Por qué quieres forma parte en Enseña por México? *"/>
+                    <apex:inputField label="¿Por qué quieres forma parte en Enseña por México? *" value="{!primeraEv.Razones_para_querer_formar_parte_de_ExM__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Cuál es el principal problema de México? *"/>
+                    <apex:inputField label="¿Cuál es el principal problema de México? *" value="{!primeraEv.problemas_del_sistema_educativo_Mexicano__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Máximo 1000 caracteres">
+                    <apex:outputLabel value="¿Hasta qué punto crees que las acciones de las ONGs puedan contribuir a la mejora del país? Explica tu respuesta. *"/>
+                    <apex:inputField value="{!primeraEv.AccionesONG__c}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageMessage summary="Elegiste inglés como un área donde podrías desarrollarte. Es necesario que cuentes con un puntaje de 550 en Paper Based TOEFL o el 
+            equivalente en algún otro examen certificador." severity="info" strength="1" escape="false" rendered="{!verIngles && primeraEv.PaisControlador__c == 'México'}"/>
+            -->
+            <apex:pageMessage summary="Uno de los objetivos de Enseña por México es ayudar a cerrar la brecha educativa en México. 
+                Si fueras seleccionado como Profesional Enseña por México, qué podrías enseñar considerando que debes tener las capacidades 
+                técnicas necesarias para impartir diferentes materias del área que selecciones." severity="info" strength="1" escape="false" />
+            
+            <apex:pageBlockSection title="Enseñanza">
+                <apex:pageMessage summary="1. Si te preparas suficientemente, ¿qué tan capaz te sientes para impartir, a nivel preparatoria, la materia de [...]?" severity="info" strength="2" escape="false" />            
+                    <apex:pageBlocksection >
+                    <apex:inputField label="Biología *" 
+                        value="{!contacto.Biologia__c}"/>
+                    <apex:inputField label="Física *" 
+                        value="{!contacto.Fisica__c}"/>
+                    <apex:inputField label="Química *" 
+                        value="{!contacto.Quimica__c}"/>
+                    <apex:inputField label="Ciencias sociales (historia, economía, etc.) *" 
+                        value="{!contacto.CienciasSociales__c}"/>
+                    <apex:inputField label="Computación *" 
+                        value="{!contacto.Computacion__c}"/>
+                    <apex:inputField label="Inglés *" 
+                        value="{!contacto.Ingles__c}"/>
+                    <apex:inputField label="Matemáticas *" 
+                        value="{!contacto.Matematicas__c}"/>
+                    <apex:inputField label="Orientación y desarrollo humano *" 
+                        value="{!contacto.OrientacionDesarrolloHumano__c}"/> 
+                    </apex:pageBlocksection>
+                <apex:pageMessage summary="2. ¿Qué tan cómodo(a) te sentirías con que te asignen a una escuela […]?" severity="info" strength="2" escape="false" />            
+                    <apex:pageBlocksection >
+                    <apex:inputField label="Primaria *" 
+                        value="{!contacto.Primaria__c}"/>
+                    <apex:inputField label="Secundaria *" 
+                        value="{!contacto.Secundaria__c}"/>
+                    <apex:inputField label="Preparatoria *" 
+                        value="{!contacto.Preparatoria__c}"/>    
+                    </apex:pageBlocksection>
+                <apex:pageMessage summary="3. ¿Qué tan cómodo(a) te sentirías con que te asignen a una escuela en una localidad […]?" severity="info" strength="2" escape="false" />            
+                    <apex:pageBlocksection >
+                    <apex:inputField label="Rural *" 
+                        value="{!contacto.Rural__c}"/>
+                    <apex:inputField label="Urbana*" 
+                        value="{!contacto.Urbana__c}"/>
+                    </apex:pageBlocksection>
+                <!-- <apex:inputField value="{!primeraEv.Areapodriasdesarrollarte__c}">
+                    <apex:actionSupport event="onchange" action="{!validaArea}" rerender="frm" status="StatusProcess" />
+                </apex:inputField> -->
+            </apex:pageBlockSection>
+            
+            <!-- <apex:pageBlockSection title="Inglés" rendered="{!verIngles && primeraEv.PaisControlador__c == 'México'}">
+                <apex:inputField label="Paper based TOEFL" value="{!primeraEv.Paper_based_TOEFL__c}"/>
+                <apex:inputField label="Computer based TOEFL" value="{!primeraEv.Computer_based_TOEFL__c}"/>
+                <apex:inputField label="Internet based TOEFL" value="{!primeraEv.Internet_based_TOEFL__c}"/>
+                <apex:inputField label="IELTS" value="{!primeraEv.IELTS__c}"/>
+                <apex:inputField label="Cambridge ESOL" value="{!primeraEv.Cambridge_ESOL__c}"/>
+                <apex:inputField label="Otro" value="{!primeraEv.OtroIngles__c}"/>
+                <apex:inputField label="Tengo la capacidad para enseñar Inglés, pero no he presentado ningún examen certificador" 
+                    value="{!primeraEv.CapacidadConocimientoEnseniarIngles__c}"/>
+            </apex:pageBlockSection> -->
+            
+            <apex:pageBlockSection title="Información Adicional" id="infAd">
+                <apex:inputField label="¿A través de qué medio te enteraste sobre esta convocatoria? *" value="{!contacto.C_mo_te_enteraste_de_ExM__c}">
+                    <apex:actionSupport event="onchange" rerender="infAd" />
+                </apex:inputField>
+                <apex:inputField label="Agregar Medio *" value="{!contacto.OtroMedio__c}" rendered="{!contacto.C_mo_te_enteraste_de_ExM__c == 'Otro'}"/>
+                <apex:inputField label="¿Has realizado algún voluntariado o servicio social? *" value="{!primeraEv.Servicio_como_voluntario__c}"/>
+                <!-- <apex:inputField label="¿Sufres de alguna discapacidad o enfermedad crónica? *" value="{!primeraEv.SufresDiscapacidadOEnfermedad__c}">
+                    <apex:actionSupport event="onchange" rerender="infAd" />
+                </apex:inputField>
+                <apex:inputField label="¿Qué tratamiento utilizas? *" value="{!primeraEv.TratamientoDiscapacidadOEnfermedad__c}" 
+                    rendered="{!primeraEv.SufresDiscapacidadOEnfermedad__c == 'Si'}"/> -->
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Confirmación de Información" columns="1">
+                <apex:outputPanel id="datosPer">
+                    <table width="100%" cellspacing="0" cellpadding="0" class="labels">
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.HeLeidoDetenidamenteQueTrata__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* He leído detenidamente de qué trata el programa." styleClass="labels"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.EstoyConscienteAceptacion__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* Estoy conciente que de ser aceptado tras el proceso de selección, 
+                                    mi principal labor será impartir clases en una escuela pública dentro de una zona marginada." styleClass="labels"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.DeSerAceptadoPosibleDebaMudarme__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* Estoy conciente que de ser aceptado estaré dispuesto a cambiar mi lugar de residencia. 
+" 
+                                    styleClass="labels"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px;">
+                            <td width="15%" align="right">
+                                <apex:inputCheckbox value="{!primeraEv.ConfirmacionDeInformacion__c}"/>
+                            </td>
+                            <td width="85%">
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="* Confirmo que la información proporcionada en este formulario me pertenece, 
+                                    es auténtica y comprobable." styleClass="labels"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" cellspacing="0" cellpadding="0">
+                        <tr style="border: 1px;">
+                            <td width="50%" align="right">
+                                <apex:outputLabel value="Tu nombre completo a manera de firma electrónica * " styleClass="labels"/>&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td width="50%">
+                                <apex:inputText size="50" value="{!primeraEv.NombreManeraFirmaElectronica__c}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1">
+                <apex:outputPanel >
+                <div align="center">
+                    <hr color="#EEE9F0" size="1" width="100%"/><br/>
+                    <apex:commandButton value="Enviar Solicitud" action="{!guardaContacto}"/>
+                </div>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </div>
+        </apex:outputPanel>
+        <apex:actionStatus id="StatusProcess">
+            <apex:facet name="start">
+                <c:StatusModal Message="Procesando..." Project="Primera Evaluación"/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

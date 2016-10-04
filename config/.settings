@@ -1,0 +1,17 @@
+{
+    "projectName": "Mexico",
+    "username": "r.delao@ensenapormexico.org",
+    "id": "71c861f0-8a60-11e6-a1d8-3f8789bc146d",
+    "namespace": "",
+    "orgType": "developer",
+    "loginUrl": "https://login.salesforce.com/",
+    "instanceUrl": "https://na14.salesforce.com",
+    "workspace": "/Users/mhorine/Documents",
+    "subscription": [
+        "ApexClass",
+        "ApexComponent",
+        "ApexPage",
+        "ApexTrigger",
+        "StaticResource"
+    ]
+}

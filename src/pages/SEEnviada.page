@@ -1,0 +1,36 @@
+<apex:page sidebar="false" showHeader="false" contentType="text/html">
+    <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 18;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <table style="width: 100%;">
+            <tr>
+                <td><br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br /></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="300" height="65" /> <br /> <br />
+                </td>
+            </tr>
+            <tr>
+                <td class="labels" align="center">El equipo de reclutamiento y selección de Enseña por México ha recibido tus respuestas, en breve
+                    te llegará un correo de confirmación de recepción de información.</td>
+            </tr>
+            <tr>
+                <td> <br /><br /><br /><br /><br /><br /> </td>
+            </tr>
+        </table>
+    </apex:form>
+</apex:page>

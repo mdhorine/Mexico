@@ -1,0 +1,301 @@
+<apex:page controller="CtrlTerceraEvaluacion" sidebar="false" showheader="false">
+    <head>
+        <style type="text/css">
+            A:link {text-decoration:none}
+            A:visited {text-decoration:none}
+            .tabla {
+                border: 0px;
+            }
+            .encabezado {
+                background-color: #BDBDBD;
+                font-size: small;
+                font-weight: bold;
+                padding: 4px;
+                border: 0px;
+            }
+            .inputs {
+                border-left: 0px;
+                border-right: 0px;
+                border-top: 0px;
+                border-bottom-color: #D8D8D8;
+            }
+            .labels {
+                color: #443E46;
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 95%;
+            }
+            .gralText {
+                font-size: 95%;
+                font-family: Arial;
+            }
+            .faltan {
+                font-family: Berlin Sans FB Demi;
+                font-size: 23px;
+                color: red;
+                text-align: center;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <apex:form id="frm" styleClass="gralText">
+        <apex:pageMessage summary="No existe su información de Contacto, por favor comuníquese con el Equipo de Enseña por México." severity="INFO" 
+            strength="2" rendered="{!!continuar}"/>
+        <apex:outputPanel rendered="{!continuar}">
+        <div align="center">
+        <table style="width: 900px;padding: 8px; vertical-align: middle;" border="">
+            <tr>
+                <td align="left" style="font-weight: bold; font-size: 12px;">
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="300" height="60"/>
+                    <div align="right">Bienvenido {!contacto.Name} !!!</div> <br/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    GUÍA PARA EL CENTRO DE EVALUACIÓN
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="justify">Tú eres parte de un pequeño porcentaje de entre todos los participantes que están siendo invitados a formar parte de la tercera 
+                        y última etapa del proceso de selección de Enseña por México. Gracias a tus habilidades demostradas serás parte del Centro de Evaluación y los 
+                        candidatos que superen esta fase, recibirán una propuesta para formar parte del equipo y convertirte en un Profesional Enseña por México (PEM). </p>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    PREPARACIÓN PARA EL CENTRO DE EVALUACIÓN
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            Mientras te preparas para el centro de evaluación, es importante que tomes en cuenta que todas las actividades están diseñadas para brindarte 
+                            diferentes espacios en donde puedas evidenciar tus habilidades y competencias.
+                            <br/><br/>
+                            Enseña por México está buscando personas con perfil de excelencia que demuestren:
+                        </p>
+                        <ol start="1">
+                            <li>Compartir los fines de Enseña por México.</li>
+                            <li>Con fuerte sentido de posibilidad.</li>
+                            <li>Resultados exitosos en el ámbito académico, liderazgo y/o laboral.</li>
+                            <li>Aptitudes de perseverancia, compromiso y espíritu innovador.</li>
+                            <li>Capacidad de planeación, organización.</li>
+                            <li>Liderazgo, motivación y capacidad de relacionarse con diversos actores.</li>
+                            <li>De pensamiento crítico.</li>
+                            <li>Habilidades para el uso de la tecnología y redes sociales.</li>
+                            <li>Manejo del idioma inglés.</li>
+                            <li>Manejo correcto de la expresión escrita.</li>
+                        </ol>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    ACTIVIDADES DEL CENTRO DE EVALUACIÓN
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            Enseña por México reúne a postulantes y evaluadores durante el centro de evaluación para realizar actividades 
+                            individuales y grupales con el fin de medir tus habilidades y competencias, éstas  son las siguientes;
+                        </p>
+                        <ul type="circle">
+                            <li>5 minutos como profesor</li>
+                            <li>Actividad grupal</li>
+                            <li>Entrevista personal</li>
+                            <li>Juego de roles</li>
+                        </ul>
+                        <p align="justify">
+                            Cada actividad  será explicada el día del centro de evaluación. Las únicas actividades que requieren tu trabajo previo 
+                            son 5 minutos como profesor y juego de roles. Asegúrate de leer toda la información contenida en este documento para 
+                            garantizar que te encuentras totalmente preparado para asistir al centro de evaluación.
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    5 MINUTOS COMO PROFESOR
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            La siguiente actividad se denomina <b>5 minutos como profesor</b>, tendrás que desarrollar una pequeña lección con una duración de 5 minutos. 
+                            Deberás elegir la materia y el tema de la siguiente lista y fijar tu objetivo de la clase, te recomendamos que elijas el tema que te 
+                            haga sentir más cómodo. Debes venir preparado para desarrollar la clase ante un grupo de entre 12 y 14 personas que actuarán como 
+                            alumnos e interactuarán contigo durante este tiempo.
+                        </p>
+                        <div align="center">
+                        <apex:image id="theImageA" value="{!$Resource.Tabla3E}"/>
+                        </div>
+                        <p align="justify">
+                            Tendrás 1 minuto previo para instalar todo el material que vas a utilizar. Si deseas utilizar cartulinas, impresiones u hojas de trabajo 
+                            deberás tenerlas preparadas antes del centro de evaluación. Tendrás disponible el pizarrón, plumones, hojas en blanco y lápices. 
+                            No contaremos con computadora o proyector por lo que presentaciones en powerpoint o en algún otro formato, no podrán ser utilizadas.
+                            <br/><br/>Será necesario que escribas en el pizarrón la siguiente información. Ejemplo:
+                            <br/><br/>&emsp;&emsp;Nombre: César Chávez
+                            <br/>&emsp;&emsp;Materia: Ciencias Naturales
+                            <br/>&emsp;&emsp;Tema: Poder nutricional de los alimentos
+                            <br/>&emsp;&emsp;Objetivo de la clase: Alimentos con vitamina C
+                            <br/><br/>En el ejemplo anterior los alumnos deberán ser capaces de reconocer aquellos alimentos que contienen de forma natural 
+                            vitamina C y sus beneficios en el cuerpo.
+                            <br/><br/>Recuerda que cuentas únicamente con 5 minutos para desarrollar la lección y esperamos que realices una actividad 
+                            que demuestre el aprendizaje de tus alumnos.
+                            <!--<br/><br/>Ejemplo de evidencia de aprendizaje de los alumnos:
+                            <ul type="disc">
+                                <li>5 minutos como profesor</li>
+                                <li>Actividad grupal</li>
+                                <li>Entrevista personal</li>
+                                <li>Juego de roles</li>
+                            </ul>-->
+                            Durante la lección está permitido que asumas que tus estudiantes tienen un conocimiento previo del tema por lo que puedes hacer 
+                            referencia a una lección anterior (ejemplo: buenos días a todos, como recuerdan el día de ayer estudiamos que eran las vitaminas 
+                            y vimos algunos ejemplos de éstas, el día de hoy vamos a estudiar los alimentos qué contienen vitamina C).
+                            
+                            <br/><br/>RECOMENDACIONES
+                            <br/><br/>
+                            Una lección exitosa es aquella que alcanza el objetivo en 5 minutos, esto significa que deberás elegir un objetivo que 
+                            puedas alcanzar en este tiempo incluyendo la actividad.
+                            <br/>Las lecciones exitosas son aquellas que se planean cuidadosamente para asegurar que no se desperdicia tiempo durante la lección.
+                            <br/>Para asegurar que lograrás mantener la atención de todos tus estudiantes durante la lección te recomendamos llevar material visual.
+                            <br/>Los candidatos que buscan desarrollar exitosamente la lección deberán hacerse las siguientes preguntas:
+                            <ul type="disc">
+                                <li>Puedo alcanzar el objetivo en 5 minutos</li>
+                                <li>Tengo la actividad correcta para comprobar que mis estudiantes entendieron la lección</li>
+                                <li>Existe alguna manera en que pueda mejorar mi lección y ahorrar tiempo</li>
+                                <li>Estoy manteniendo la atención de mis alumnos con el material que preparé</li>
+                            </ul>
+                            Estamos seguros que si sigues nuestras recomendaciones lograrás tener un buen desempeño durante esta actividad.
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    ACTIVIDAD GRUPAL
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            Todos los candidatos participarán en la actividad grupal, las indicaciones se proporcionarán en el momento de la actividad. 
+                            No necesitas previa preparación.
+                            <br/><br/>La actividad está prevista para realizarse en  aproximadamente 20 minutos.
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    ENTREVISTA PERSONAL
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            Cada uno de los participantes tendrá una entrevista personal en el centro de evaluación durante la cual, el evaluador te 
+                            pedirá ejemplos de actividades que demuestren que posees el perfil con las competencias que Enseña por México esta buscando. 
+                            Muchas de las preguntas, estarán relacionadas con las respuestas que nos compartiste durante el formato en línea en la 
+                            primera etapa de selección.
+                            <br/><br/>
+                            Enseña por México no agenda con anterioridad la hora de las entrevistas, cada participante tendrá la oportunidad para elegir 
+                            durante el centro de evaluación el horario para realizarla. Te recomendamos llegar con anterioridad, ya que entre más temprano 
+                            llegues mayores opciones tendrás para elegir tu hora de entrevista.
+                            <br/><br/>La duración de la entrevista es de aproximadamente: 45 minutos
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    JUEGO DE ROLES
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            Durante la entrevista se llevará a cabo la actividad de juego de roles en la cual tú desarrollarás el papel de maestro y el evaluador 
+                            será el director de la escuela.
+                            <br/><br/>
+                            Contexto: Eres maestro/a de historia de tercero de secundaria en una escuela pública ubicada en el estado de Puebla. 
+                            Durante el año escolar estudiaste con tus alumnos la Independencia de México y como actividad para ampliar su conocimiento, 
+                            deseas llevarlos a un museo para que conozcan más sobre el tema.
+                            <br/><br/>
+                            Objetivo: Tu trabajo, será convencer al director de la escuela para que autorice el viaje al museo. Como antecedente, 
+                            sabes que varios de sus compañeros han intentado realizar viajes similares mismos que han sido rechazados por el director.
+                            <br/><br/>
+                            Tendrás  5 minutos para argumentar y convencer al director.
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    RECOMENDACIONES
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                            Es importante que vengas preparado para hablar de tus experiencias que ilustren de mejor manera las competencias que estamos buscando.
+                            <br/><br/>
+                            Puedes traer contigo material de lectura ya que es probable que tengas tiempo libre mientras esperas para tu entrevista.
+                            <br/><br/>
+                            Esperamos que todos los participantes luzcan y actúen de manera profesional el día del centro de evaluación.
+                            <br/><br/>
+                            Deberás llegar a tiempo ya que daremos inicio a las 9:00 am en punto.
+                            <br/><br/>
+                            Código de vestimenta: Formal (no mezclilla)
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td>
+                    <div style="width: 95%" align="left">
+                        <p align="justify">
+                           <!-- El centro de evaluación reúne a todos los finalistas del proceso de selección, por lo que la logística previa a este evento requiere 
+                            el conocimiento del número de candidatos que asistirán al mismo. 
+                            <br/><br/>-->
+                            Es importante que tomes en cuenta que el centro de evaluación absorberá la mayor parte de tu día, 
+                            por lo que te recomendamos que no planees nada importante ya que tu hora de salida dependerá de tu hora de entrevista.
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <!--<tr>
+                <td align="center" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                    CONFIRMACIÓN
+                    <div style="width: 95%" align="left">
+                        <apex:pageBlock >
+                            <apex:pageMessages id="pageMessages" escape="false"/>
+                            
+                            Nombre <font color="red">*</font> &nbsp;&nbsp;
+                            <apex:inputText value="{!nombre}"/>
+                            <br/><br/>
+                            Confirmo mi asistencia al centro de evaluación que se llevará acabo el día y hora indicada en el correo 
+                            <br/>
+                             <apex:selectRadio value="{!asistir}">
+                                <apex:selectOption itemValue="Si" itemLabel="Sí confirmo mi asistencia"/>
+                                <apex:selectOption itemValue="No" itemLabel="No confirmo mi asistencia"/>
+                            </apex:selectRadio>
+                        </apex:pageBlock>
+                    </div>
+                    <div align="center">
+                        <apex:outputPanel >
+                            <apex:actionStatus id="idStatus">
+                                <apex:facet name="stop">
+                                    <apex:outputPanel >
+                                        <div align="center">
+                                            <apex:commandButton value=" Enviar " action="{!guardaAsistencia}" rerender="pageMessages" status="idStatus"/>
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:facet>
+                                <apex:facet name="start">
+                                    <apex:outputPanel >
+                                        <div align="center">
+                                            <apex:commandButton value="Enviando..." action="{!guardaAsistencia}" disabled="true"/>
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </div>
+                </td>
+            </tr>  -->          
+        </table>
+        </div>
+        </apex:outputPanel>
+   </apex:form>
+</apex:page>

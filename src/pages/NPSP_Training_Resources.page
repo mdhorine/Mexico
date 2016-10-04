@@ -1,0 +1,29 @@
+<apex:page >
+<html>
+<br></br>
+<br></br>
+
+<span style="text-align: center;"><span style="color: #000000;"><span class="Apple-style-span" style="font-size: 16px;"><strong>NPSP Training Resources for Teach For All Partners</strong></span></span></span>
+<br>
+</br>
+
+<span style="color: #888888;"><em><strong>Basic Documents to Install TFA Starter Kit</strong></em></span>
+<ul>
+<li><a href="https://c.ap2.content.force.com/servlet/servlet.FileDownload?file=015280000001vAG" target="blank">Upgrading from NPSP 2 to NPSP 3</a></li><p></p>
+
+</ul>
+
+<span style="color: #888888;"><em><strong>Creating Donations in the NPSP Starter Kit</strong></em></span>
+<ul>
+<li><a href="https://c.ap2.content.force.com/servlet/servlet.FileDownload?file=015280000001vA6" target="blank">Donation Use Case Scenarios</a></li><p></p>
+<li><a href="https://c.ap2.content.force.com/servlet/servlet.FileDownload?file=015280000001vA1" target="blank">Creating Recurring Donations</a></li><p></p>
+
+</ul>
+
+<span style="color: #888888;"><em><strong>Email Templates and Communication with Donors</strong></em></span>
+<ul>
+<li><a href="https://c.ap2.content.force.com/servlet/servlet.FileDownload?file=015280000001vA6" target="blank">Emailing Selected Affiliation Contacts</a></li><p></p>
+
+</ul>
+</html>
+</apex:page>

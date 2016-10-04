@@ -1,0 +1,57 @@
+<apex:page controller="CtrlBienvenidaSE" sidebar="false" showHeader="false" contentType="text/html">
+    <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-size: medium;
+            }
+        </style>
+    </head>
+    <apex:form rendered="{!!noExiste}">
+        <div align="center">
+        <table style="width: 900; vertical-align: middle;">
+            <tr> <td> <br/><br/> </td> </tr>
+            <tr>
+                <td align="center">
+                    <apex:image id="theImage" value="{!$Resource.Logo}" width="600" height="130"/> <br/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="labels" align="center"> 
+                    <b>¡¡ Felicidades {!nombre} !!</b>
+                    <p style="text-align: justify;">
+                        Tu perfil y tus competencias han sido las necesarias para pasar a la segunda etapa del proceso de selección de Enseña por México.<br/><br/>
+                        Estás a punto de iniciar la segunda etapa de selección, es importante que tomes en cuenta que para contemplar esta parte cuentas con un 
+                        tiempo limitado de 60 minutos por lo que es importante que te asegures que podrás contestarla de una sola vez ya que no podrás guardar 
+                        tu progreso o iniciarla nuevamente.<br/><br/>
+                        Esta sección esta conformada por dos partes:<br/><br/>
+                        En la primera parte deberás contestar un test que nos ayudará a medir tu habilidad para hacer conexiones lógicas  en base a cierto 
+                        tipo de información. Todas las preguntas son de opción múltiple.<br/>
+                        En la segunda sección deberás leer un caso y contestar diferentes preguntas.
+                    </p>
+                    <b>¡Mucho éxito!</b>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <br/><br/><apex:commandButton value="Continuar" action="{!enviarSE}"/>
+                </td>
+            </tr>
+            <tr> <td> <br/><br/><br/><br/><br/><br/> </td> </tr>
+        </table>
+        </div>
+    </apex:form>
+    <apex:form rendered="{!noExiste}">
+        <div align="center">
+        <table style="width: 900; vertical-align: middle;">
+            <tr> <td> <br/><br/> </td> </tr>
+            <tr>
+                <td align="center">
+                    <apex:pageMessage summary="No existe tu Contacto, favor de validarlo con el equipo de Enseña por Mexico." severity="ERROR" strength="3"/>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </apex:form>
+</apex:page>

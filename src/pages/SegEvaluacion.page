@@ -1,0 +1,412 @@
+<apex:page tabStyle="Contact" controller="CtrlSegEvaluacion" sidebar="false" showHeader="false" contentType="text/html">
+    <head>
+        <script type="text/javascript">
+            var reloj={
+                horas:0,
+                minutos:0,
+                segundos:0,
+                idDestino:"reloj",
+            
+                mostrar:function() {
+                    if (reloj.segundos>0 || reloj.minutos>0 || reloj.horas>0) {
+                        reloj.segundos--;
+                        if (reloj.segundos < 0) {
+                            reloj.segundos=59;
+                            reloj.minutos--;
+                        }
+                        if (reloj.minutos < 0) {
+                            reloj.minutos=59;
+                            reloj.horas--;
+                        }
+            
+                        var string='Tiempo restante '+reloj.doscaracteres(reloj.minutos)+':'+reloj.doscaracteres(reloj.segundos);
+                        document.getElementById(reloj.idDestino).innerHTML = string;
+                    }
+                },
+                
+                iniciar:function() {
+                    setInterval(reloj.mostrar, 1000);
+                },
+                
+                doscaracteres:function(numero) {
+                    if(String(numero).length==1)
+                        return "0"+numero;
+                    return numero;
+                },
+            }
+        </script>
+        <style type="text/css">
+            .labels2 {
+                color: #000066;
+                font-family: Arial;
+                font-size: medium;
+            }
+            A:link {text-decoration:none}
+            A:visited {text-decoration:none}
+            .tabla {
+                border: 0px;
+            }
+            .encabezado {
+                background-color: #BDBDBD;
+                font-size: small;
+                font-weight: bold;
+                padding: 4px;
+                border: 0px;
+            }
+            .inputs {
+                border-left: 0px;
+                border-right: 0px;
+                border-top: 0px;
+                border-bottom-color: #D8D8D8;
+            }
+            .labels {
+                color: #443E46;
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 95%;
+            }
+            .gralText {
+                font-size: 95%;
+                font-family: Arial;
+            }
+            .faltan {
+                font-family: Berlin Sans FB Demi;
+                font-size: 23px;
+                color: red;
+                text-align: center;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body onload="mueveReloj()">
+        <apex:outputPanel id="pnlTotal" rendered="{!noExiste}">
+            <apex:form rendered="{!noExiste}">
+                <div align="center">
+                    <table style="width: 900; vertical-align: middle;">
+                        <tr> <td> <br/><br/> </td> </tr>
+                        <tr>
+                            <td align="center">
+                                <apex:pageMessage summary="No existe tu Contacto, favor de validarlo con el equipo de Enseña por Mexico." severity="ERROR" strength="3"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </apex:form>
+        </apex:outputPanel>
+        <apex:outputPanel id="pnlGral" rendered="{!!noExiste}">
+            <apex:form id="frmBienvenida">
+                <apex:outputPanel id="pnlBienv" rendered="{!!noExiste && !enviado && !paso2 && !paso3}">
+                <div align="center">
+                <table style="width: 900; vertical-align: middle;">
+                    <tr> <td> <br/><br/> </td> </tr>
+                    <tr>
+                        <td align="center">
+                            <apex:image id="theImage" value="{!$Resource.Logo}" width="400" height="130"/> <br/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labels2" align="center"> 
+                            <b>¡¡ Felicidades {!nombre} !!</b>
+                            <p style="text-align: justify;">
+                                Tu perfil y tus competencias han sido las necesarias para pasar a la segunda etapa del proceso de selección de Enseña por México.<br/><br/>
+                                Estás a punto de iniciar la segunda etapa de selección, es importante que tomes en cuenta que para contemplar esta parte cuentas con un 
+                                tiempo limitado de 60 minutos por lo que es importante que te asegures que podrás contestarla de una sola vez ya que no podrás guardar 
+                                tu progreso o iniciarla nuevamente.<br/><br/>
+                                Esta sección esta conformada por dos partes:<br/><br/>
+                                En la primera parte deberás contestar un test que nos ayudará a medir tu habilidad para hacer conexiones lógicas  en base a cierto 
+                                tipo de información. Todas las preguntas son de opción múltiple.<br/>
+                                En la segunda sección deberás leer un caso para poder desarrollar de manera escrita diferentes preguntas sobre el caso.
+                            </p>
+                            <b>¡Mucho éxito!</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <br/><br/><apex:commandButton value="Continuar" action="{!enviarSE}" reRender="frmBienvenida"/>
+                        </td>
+                    </tr>
+                    <tr> <td> <br/><br/><br/><br/><br/><br/> </td> </tr>
+                </table>
+                </div>
+                </apex:outputPanel>
+                
+                <apex:outputPanel id="pnlCuest" rendered="{!!noExiste && !enviado && paso2 && !paso3}" styleClass="gralText">
+                <table style="width: 100%;" border="">
+                    <tr>
+                        <td >
+                            <apex:image id="theImage2" value="{!$Resource.Logo}" width="200" height="60"/> <br/>
+                        </td>
+                        <td align="right" style="font-size: small;font-weight: bold; color: #0B0B61;">
+                            <br/><apex:outputLabel value="Bienvenido {!nombre} !" rendered="{!contacto.Id != null}"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                
+                <apex:pageBlock title="Segunda Evaluación" rendered="{!contacto.Id != null}" id="pBAct">
+                    <apex:outputPanel styleClass="faltan">
+                        <div id="reloj" align="right"></div>
+                        <script>
+                            var miReloj=reloj;
+                            miReloj.horas=0;
+                            miReloj.minutos=59;
+                            miReloj.segundos=59;
+                            miReloj.iniciar();
+                        </script>
+                        <hr size="1" color="gray"/>
+                    </apex:outputPanel>
+            <apex:pageMessages id="pageMessages" escape="false" />
+            <apex:pageBlockSection title="Pensamiento Critico" columns="1">
+                <apex:pageMessage summary="1. Una maestra preguntó a cuatro de sus alumnas: ¿Cómo se ordenarían ustedes respecto a sus edades de mayor 
+                a menor?. Analiza sus respuestas e indica el orden pedido por la maestra.</br>Elsa: mi amiga Francis es mayor que yo.</br> Francis: Silvia es mayor que yo.
+                </br>Silvia: yo nací antes que Elsa.</br> Laura: yo soy mayor que Francis y menor que Silvia." escape="false" severity="INFO" strength="1"/>
+                
+                <apex:selectList label="" value="{!segEv.X1_preguntas_para_el_profesor_Ugarte__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Silvia, Laura, Francis, Elsa"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Silvia, Laura, Elsa, Francis"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Laura, Silvia, Francis, Elsa"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Laura, Francis, Silvia, Elsa"/>
+                    <apex:selectOption itemValue="F" itemLabel="F-Elsa, Silvia, Laura, Francis"/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="<b>Usa la tabla “A” para responder las preguntas de la 2 a la 6</b><br/>El profesor Omar quiere saber cuál es la mejor manera de 
+                preparar a sus alumnos para la Prueba ENLACE para ello empleó diferentes sistemas a lo largo del año. Una vez que supo los puntajes de la prueba comparó todos 
+                sus análisis en la siguiente tabla:" escape="false" severity="INFO" strength="1"/>
+                <apex:image id="Tabla1_2016" value="{!$Resource.Tabla1_2016}"/>
+                <apex:outputLabel value="2. De los alumnos que aumentaron más de 100 puntos entre su puntaje inicial y final todos cumplieron con:"/>
+                <apex:selectList label="" value="{!segEv.X2_El_aumento_de_participaci_n_en_clases__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Podían asistir a las clases de apoyo en las mañanas porque no tenían otras obligaciones que se los impidiera."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Optaron por asistir a clases de apoyo a la hora del recreo o en la tarde para dejarse el fin de semana libre."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Prefieren destinar tiempo en sus casas y llevarse prácticas de ENLACE para hacerlos de forma independiente porque 
+                    encontraron que era más eficiente que trabajar en grupo."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Tienen obligaciones que no les permiten asistir a clases de apoyo en las tardes."/>
+                </apex:selectList>
+                
+                <apex:outputLabel value="3. El profesor Omar quiere eliminar de sus clases la estrategia que tuvo menor efecto en el resultado de ENLACE ¿Cuál estrategia debería 
+                considerar eliminar?"/>
+                <apex:selectList label="" value="{!segEv.X3_Por_qu_sacan_mejores_notas__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Clases de apoyo en las mañanas."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Clases de apoyo a la hora de almuerzo"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Horas de estudio personal en clases."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-ENLACE de práctica para la casa."/>
+                </apex:selectList>
+                    
+                <apex:outputLabel value="4. ¿Cuál de las siguientes preguntas es la más importante para ayudar al profesor Omar a entender cómo las clases de apoyo a la hora de 
+                almuerzo han ayudado a mejorar el rendimiento de sus alumnos en la Prueba ENLACE?"/>
+                <apex:selectList label="" value="{!segEv.X4_Las_conclusiones_de_la_tabla__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-¿Por qué tan pocos alumnos asistieron a las clases de apoyo a la hora de almuerzo?"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-¿Por qué más o menos los mismos alumnos asistieron a las clases de apoyo de la hora de almuerzo y de la tarde?"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-¿Por qué Vero, Paula y Ana prefirieron tomar las clases de apoyo en la mañana y los sábados en lugar de las clases de la hora de almuerzo?"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Del progreso que consiguió Susana, Tomás y Claudio ¿Cuánto se debe a las clases de apoyo a la hora de almuerzo y cuánto a otros factores?"/>
+                </apex:selectList>
+                
+                <apex:outputLabel value="5. ¿Cuál de las siguientes preguntas es la más importante a considerar por el profesor Omar cuando planifique su cambio de sistema para el próximo año?"/>
+                <apex:selectList label="" value="{!segEv.X5_La_tabla_no_confirma__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-¿Cuál sistema prefieren los alumnos?"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-¿Qué sistema utilizan aquellos alumnos que más aumentaron su puntaje en la Prueba ENLACE?"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-¿Qué sistema utilizan aquellos alumnos que obtuvieron más de 700 puntos?"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-¿Qué dificultades deben enfrentar los alumnos para venir a las clases de apoyo en las mañanas o en las tardes?"/>
+                </apex:selectList>
+                
+                <apex:outputLabel value="6. Como se muestra en la tabla, Félix fue el único alumno cuyo puntaje no cambió, a pesar de su participación en dos de los sistemas de apoyo del 
+                profesor Omar. ¿Cuál es la explicación más lógica de por qué su puntaje no cambió?"/>
+                <apex:selectList label="" value="{!segEv.X6_Director_del_colegio_debe_considerar__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Félix consideró que su puntaje inicial de 560 estaba bien y no se preocupó."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Félix no asistió a clases de apoyo en la mañana y debería haber asistido."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Seguramente Félix fue a muy pocas clases los sábados o no aprovechó bien su tiempo en sus horas de 
+                    estudio personal en clases."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Félix tuvo apoyo para mejorar sus resultados, pero este apoyo no estaba enfocado a sus necesidades particulares."/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="7. Selecciona la opción que relacione correctamente ambas columnas.</br></br><b>Principios de la educación</b></br> 1. Laicismo.</br>2. Gratuidad.
+                </br>3. Obligatoriedad.</br> 4. Nacionalismo </br></br><b>Argumentos</b></br>A. Posibilita que todas las personas tengan acceso a la educación básica. </br>
+                B. Atiende la comprensión de nuestros problemas, el aprovechamiento de los recursos y el acrecentamiento de la cultura.</br> 
+                C. Promueve un sistema de vida fundado en el constante mejoramiento económico, social y cultural del pueblo.</br>
+                D. Se refiere a la responsabilidad de los padres de enviar a sus hijos a escuelas públicas o privadas para obtener la educación básica.</br>
+                E. Evita el proselitismo en el ámbito de la escuela pública." escape="false" severity="INFO" strength="1"/>
+                
+                <apex:selectList label="" value="{!segEv.X7_Alumnos_que_aumentaron_100_puntos__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-1a, 2c, 3b, 4e"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-1b, 2d, 3c, 4a"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-1c, 2e, 3a, 4d"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-1e, 2a, 3d, 4b"/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="8.Para una fiesta escolar, se les pidieron a dos grupos 4 cascarones de huevo por alumno. Un grupo tiene 18 alumnos y otro 22, 
+                si al juntar los cascarones los maestros observan que la quinta parte se rompió, ¿cuántos cascarones pueden utilizarse?" escape="false" severity="INFO" strength="1"/>
+                
+                <apex:selectList label="" value="{!segEv.X8_Estrategia_para_eliminar__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-32"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-50"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-128"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-160"/>
+                    <apex:selectOption itemValue="E" itemLabel="E-200"/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="9.Los 52 alumnos del grupo A, los 40 alumnos del grupo B, y los 32 alumnos del grupo C, presentan examen parcial de matemáticas. 
+                En el grupo A, aprueban 36 y reprueban 16; en el grupo B, aprueban 28 y reprueban 12; en el grupo C, aprueban 24 y reprueban 8. ¿Qué grupo tiene mayor nivel 
+                de aprobación?" escape="false" severity="INFO" strength="1"/>
+                
+                <apex:selectList label="" value="{!segEv.X9_Tutor_a_de_Felipe_durante_el_almuerzo__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Grupo B"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Grupos A y B"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Grupo A"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Grupo C"/>
+                    <apex:selectOption itemValue="E" itemLabel="E-Grupo C y D"/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="<b>Usa la tabla “B” para responder de las preguntas 10 a la 13</b><br/>La zona escolar número 109 de Guanajuato 
+                se fijó la meta de alcanzar al menos el 90% de asistencia diaria de sus alumnos a clases. La tabla “B” muestra la información recolectada 
+                de varios colegios de la zona escolar." escape="false" severity="INFO" strength="1"/>
+                <apex:image id="theImageD" value="{!$Resource.TablaD}"/>
+                
+                <apex:outputLabel value="10. Basado en la información de la Tabla “B” ¿Cuál de las siguientes afirmaciones es la más lógica?"/>
+                <apex:selectList label="" value="{!segEv.X10_Planifique_su_cambio_de_sistema__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Los colegios que tienen mejor asistencia ofrecen programas de apoyo escolar después de clases."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Los colegios que tienen mejor asistencia presentan un alto porcentaje de alumnos provenientes de familias de 
+                    un solo padre de familia."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Los alumnos de los colegios de mejor asistencia viven más cerca del colegio."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Los colegios de mejor asistencia dan almuerzo a sus alumnos."/>
+                </apex:selectList>
+                
+                <apex:outputLabel value="11. Si el director del Colegio 1 quiere lograr un porcentaje de asistencia de al menos 90%, ¿Qué modificaciones debe hacer a su 
+                presupuesto por alumno?"/>
+                <apex:selectList label="" value="{!segEv.X11_No_puntuaci_n_de_F_lix_a_cambiar__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Aumentar el presupuesto por alumno en al menos $2,600."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Aumentar el presupuesto por alumno en al menos $4,700."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Aumentar el presupuesto por alumno en al menos $13,600."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-No necesita realizar modificaciones a su presupuesto por alumno."/>
+                </apex:selectList>
+                
+                <apex:outputLabel value="12. A pesar de que el Colegio 3 tiene una persona del colegio dedicada a resolver los problemas de asistencia de los alumnos, 
+                según los datos de la Tabla “B” ¿Qué puede hacer el colegio para aumentar su baja asistencia a clases?"/>
+                <apex:selectList label="" value="{!segEv.X12_Tabla_D_es_la_m_s_l_gica__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-La misma persona dedicada a resolver problemas de asistencia debe coordinar las asambleas del colegio completo."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-La misma persona dedicada a resolver problemas de asistencia debe realizar el trabajo con padres sobre la importancia de la asistencia a clases."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-La misma persona dedicada a resolver problemas de asistencia debe priorizar aquellas familias de un solo padre de familia."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-La misma persona dedicada a resolver problemas de asistencia debe llevar el control de las reuniones profesor-padre de familia."/>
+                </apex:selectList>
+                
+                <apex:outputLabel value="13. Considerando la información de los colegios que realizan trabajo con padres sobre la importancia de la asistencia a clases y que cuentan 
+                con una persona para resolver los problemas de asistencia. ¿Qué diferencia a los colegios con asistencia de al menos 90% del resto?"/>
+                <apex:selectList label="" value="{!segEv.X13_Cambiar_la_asistencia_de_la_Colegio1__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Tienen una persona dedicada a resolver los problemas de asistencia de los alumnos."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Realizan trabajo con los padres sobre la importancia de la asistencia de clases."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Tienen una persona dedicada a resolver los problemas de asistencia de los alumnos o realizan 
+                    trabajo con los padres sobre la importancia de la asistencia a clases."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Tienen una persona dedicada a resolver los problemas de asistencia de los alumnos y realizan 
+                    trabajo con los padres sobre la importancia de la asistencia a clases."/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="14.Dentro de tu salón de clases, dos alumnos comienzan a agredirse físicamente ¿Cuál de las siguientes opciones 
+                consideras la más adecuada?" escape="false" severity="INFO" strength="1"/>
+
+                <apex:selectList label="" value="{!segEv.X14_Cambiar_la_asistencia_de_la_Colegio3__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-Separar la pelea."/>
+                    <apex:selectOption itemValue="B" itemLabel="B-Llamarles la atención para intentar establecer un diálogo."/>
+                    <apex:selectOption itemValue="C" itemLabel="C-Buscar al prefecto o a la autoridad más cercana."/>
+                    <apex:selectOption itemValue="D" itemLabel="D-Llamar a los padres de familia o a sus tutores para informarles de la situación."/>
+                </apex:selectList>
+                
+                <apex:pageMessage summary="15. A los alumnos de una escuela rural les gusta trabajar en equipo e intercambiar ideas. Les agrada realizar las actividades que proponen
+                los libros de texto, sobre todo las de ciencias naturales, como observar su entorno y aquellas en las que puedan representar lo aprendido, mediante diferentes materiales; 
+                también les gusta escuchar relatos o realizar lecturas de historia. La maestra, atendiendo a los intereses del grupo, diseñó una serie de actividades para desarrollar el 
+                tema “Las diferencias entre el campo y la ciudad”, con el propósito de identificar las diferencias entre ambos entornos. De acuerdo con la situación escolar anterior, 
+                ¿Cuál es la secuencia de actividades didácticas que permiten a la maestra alcanzar el propósito establecido? </br></br>
+                1. Invitar a los alumnos a encontrar diferencias entre el lugar en el que viven y las imágenes de una ciudad que aparece en su libro de texto </br>
+                2. Solicitar a dos niños que inventen y narren al grupo, dos sucesos interesantes asociados, uno al campo, y otro a la ciudad </br>
+                3. Pedir a los niños que nombren algunos elementos que aparecen en la ilustración y los anoten en el pizarrón, así como el nombre de algunas cosas que los rodean 
+                en el campo </br>
+                4. Organizar a los alumnos por equipos y pedir que cada grupo elabore una maqueta de la ciudad </br>
+                5. Preguntar a los alumnos “¿quién ha ido a la ciudad?, ¿qué es lo que han visto?, ¿qué les agradó y qué no?” y comentar las respuestas dadas." escape="false" severity="INFO" strength="1"/>
+                
+                <apex:selectList label="" value="{!segEv.X15_escuelas_con_buena_asistencia__c}" size="1">
+                    <apex:selectOption itemValue="none" itemLabel="Selecciona..."/>
+                    <apex:selectOption itemValue="A" itemLabel="A-4, 1, 5, 3, 2"/>
+                    <apex:selectOption itemValue="B" itemLabel="B-4, 3, 2, 1, 5"/>
+                    <apex:selectOption itemValue="C" itemLabel="C-5, 1, 3, 2, 4"/>
+                    <apex:selectOption itemValue="D" itemLabel="D-5, 2, 4, 3, 1"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Construcción de Relaciones" columns="1">
+                        <apex:pageMessage summary="Diego Armando de 24 años es maestro en la escuela Josefa Ortiz de Domínguez desde hace 3 meses; sus clases se caracterizan 
+                            por obtener buenos resultados,  sus alumnos están interesados en sus clases y siempre muestran confianza para contarle temas personales. Durante 
+                            los recesos los alumnos buscan platicar con él mientras el resto de los profesores se juntan a desayunar. Por las tardes Diego Armando se queda 
+                            fuera del horario escolar a resolver dudas académicas incluyendo  de materias que él no imparte. La maestra Julia tiene 50 años, es una buena 
+                            maestra pero sus clases son muy tradicionales,  poco dinámicas y mantiene una relación distante con sus alumnos. La maestra se ha quejado con 
+                            el director porque cree que las clases de Diego Armando son caóticas y cree que al eliminar la figura de autoridad que deben guardar todos los 
+                            maestros con los alumnos se pierda el control de los grupos, también considera que Diego Armando está poco integrado con el resto de la planta 
+                            docente y que en el tiempo que lleva trabajando en la escuela nunca ha buscado involucrarse con asuntos externos a sus clases. El director muy 
+                            molesto ha llamado a Diego Armando para informarle del caso y aclarar la situación." severity="INFO" strength="1" />
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="2">
+                        <apex:inputField label="1- ¿Cómo consideras la postura de la maestra Julia?" value="{!segEv.ComoconsiderasposturamaestraJulia__c}"/>
+                        <apex:inputField label="2- ¿Cómo consideras la postura del director?" value="{!segEv.Comoconsiderasposturadeldirector__c}"/>
+                        <apex:inputField label="3- ¿Por qué crees que el director está enfadado con la situación?" value="{!segEv.Porqueenfadodirector__c}"/>
+                        <apex:inputField label="4- ¿Por qué crees que la maestra Julia reaccionó de tal modo?" value="{!segEv.PorquereaccionmaestraJulia__c}"/>
+                        <apex:inputField label="5- ¿Cómo abordarías el problema con el director, que estrategias concretas utilizarías para enfrentar la siuación?" 
+                            value="{!segEv.Comoabordariasdirectorestrategias__c}"/>
+                        <apex:inputField label="6- ¿Cómo abordarías el problema con la maestra Julia, que estrategias concretas utilizarías para enfrentar la siuación?" 
+                            value="{!segEv.ComoabordarasJuliaestrategias__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection columns="1" id="bsBtn">
+                        <apex:outputPanel >
+                            <div align="center">
+                                <hr color="#EEE9F0" size="1" width="100%"/><br/>
+                                <apex:commandButton value="Enviar" action="{!guardaInfo}" reRender="frmBienvenida"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                    <apex:actionPoller action="{!tiempoAgotado}" rerender="frmBienvenida" interval="3559" enabled="{!!tiempo}" status="StatusProcess" id="priPoller"/>
+                </apex:pageBlock>
+                </apex:outputPanel>
+                
+                <apex:outputPanel id="pnlEnvio" rendered="{!!noExiste && !enviado && !paso2 && paso3}" styleClass="gralText">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br /></td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <apex:image id="theImage3" value="{!$Resource.Logo}" width="170" height="65" /> <br /> <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labels" align="center">El equipo de reclutamiento y selección de Enseña por México ha recibido tus respuestas, en breve
+                                te llegará un correo de confirmación de recepción de información. Te invitamos a consultar el calendario de actividades para que
+                                conozcas las siguientes fechas importantes de tu proceso de selección.</td>
+                        </tr>
+                        <tr>
+                            <td> <br /><br /><br /><br /><br /><br /> </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+                <apex:actionStatus id="StatusProcess">
+                    <apex:facet name="start">
+                        <c:StatusModal Message="Procesando..." Project="Segunda Evaluación"/>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:form>
+        </apex:outputPanel>
+    </body>
+</apex:page>

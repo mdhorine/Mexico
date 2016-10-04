@@ -1,0 +1,349 @@
+<apex:page standardController="Contact" sidebar="false" renderAs="PDF" contentType="text/html">
+     <head>
+        <style type="text/css">
+            .labels {
+                color: #000066;
+                font-family: Arial;
+                font-size: 100%;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <div>
+            <table align="right">
+                <tr>
+                    <td>
+                        <apex:image value="{!$Resource.Logo}" width="250" height="50"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <tr> <td> <br/><br/><br/></td></tr>
+        </div>
+        <div>
+        <table align="center">
+            <tr>
+                <td>
+                    <apex:image value="{!$Resource.Logo2}" width="705" height="30"/>
+                </td>
+            </tr>
+            </table>
+        </div>
+        <div>
+            <tr><td><br/></td></tr>
+        </div>
+        <div>
+            <table align = "left"  style="width: 100%" >
+            <tr>
+                <td style="color: #1D8BAD; font-style: Franklin Gothic Book; font-size: 170%; font-family: serif;">
+                    <b><apex:outputField value="{!Contact.NombreCompletoCandidato__c}"/>&nbsp;</b>
+                </td>
+            </tr>         
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/><br/><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table align = "left" style="width: 100%" >
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                        <apex:outputField value="{!Contact.NombreUniversidadContacto__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                        <apex:outputField value="{!Contact.CarreraContacto__c}"/>
+                    </td>
+                </tr>  
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                     Estado de Universidad:&nbsp;<apex:outputField value="{!Contact.EstadoUniversidadContacto__c}"/>
+                    </td>
+                </tr>            
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/><br/><br/><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table align = "left"  style="width: 100%" >
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                     Celular:&nbsp;<apex:outputField value="{!Contact.Tel_fono_celular__c}"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                     Mail:&nbsp;<apex:outputField value="{!Contact.Correo_electr_nico__c}"/>
+                    </td>
+                </tr>    
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                     Estado de procedencia:&nbsp;<apex:outputField value="{!Contact.EstadoCPMex__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #000000; font-style: Franklin Gothic Book; font-size: 95%; font-family: serif;">
+                         Fecha de nacimiento:&nbsp;<apex:outputField value="{!Contact.Birthdate}"/>
+                    </td>
+                </tr>        
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/><br/><br/><br/><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table align = "left"  style="width: 100%; border-collapse: collapse; ">
+                <tr>
+                    <td style="color: #7F5E92; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif; ">
+                     &nbsp;¿Qué te gusta hacer para divertirte?
+                    </td>
+                    <tr>
+                    <td style=" height:40px; color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif; ">
+                        <apex:outputField value="{!Contact.QueTeGustaHacerParaDivertirte__c}"/> <br/>
+                    </td>
+                </tr>
+                </tr>      
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/><br/><br/><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table align = "left"  style="width: 100%; border-collapse: collapse;" >
+                <tr>
+                    <td colspan="2" width="100%" style="color: #008DA9; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 110%; font-family: serif;">
+                         <b>&nbsp;Condiciones de Salud</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="100%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                        <b>&nbsp;Padece alguna enfermedad crónica</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.PadeceAlgunaEnfermedadCronica__c}"/>
+                    </td>
+                    <td width="50%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.EnfermedadCronica__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                        <b>&nbsp;Alergias </b>
+                    </td>
+                    <td width="50%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                        <b>&nbsp;Tipo de Sangre</b>                    
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Alergias__c}"/>
+                    </td>
+                    <td width="50%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.TipoSangre__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="100%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                         <b>&nbsp;Consideración de salud especial</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="100%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.ConsideracionesEspecialesSalud__c}"/>
+                    </td>
+                </tr>     
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/><br/><br/><br/><br/><br/><br/><br/><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table align = "left"  style="width: 100%; border-collapse: collapse;" >
+                <tr>
+                    <td  width="33%" align="center" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                         <b>&nbsp;Nombre</b>
+                    </td>
+                    <td  width="33%" align="center" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                         <b>&nbsp;Parentesco</b>  
+                    </td>
+                    <td  width="33%" align="center" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 90%; font-family: serif;">
+                         <b>&nbsp;Teléfono</b>
+                    </td>
+                </tr>  
+                <tr>
+                    <td  width="33%"  style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.ContactoEmergencia1__c}"/>
+                    </td>
+                    <td  width="33%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Parentesco1__c}"/>
+                    </td>
+                    <td  width="33%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.TelefonoContactoEmergencia1__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.ContactoEmergencia2__c}"/>
+                    </td>
+                    <td  width="33%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Parentesco2__c}"/>
+                    </td>
+                    <td  width="33%" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.TelefonoContactoEmergencia2__c}"/>
+                    </td>
+                </tr>     
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/><br/><br/><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table style="width: 100%; border-collapse: collapse;" >
+                <tr>
+                    <td width="33%" rowspan="8" align="center" style="color: #008DA9; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 120%; font-family: serif;">
+                        <b>Aptitudes para materias</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Biología</b>
+                    </td>                      
+                    <td width="33%"  align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Biologia__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Química</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Quimica__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                       <b>&nbsp;Computación</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Computacion__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                       <b>&nbsp;Matemáticas</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Matematicas__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Física</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Fisica__c}"/>
+                    </td>                
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Ciencias sociales</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.CienciasSociales__c}"/>
+                    </td> 
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Inglés</b> 
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Ingles__c}"/>
+                    </td> 
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Orientación al desarrollo humano</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.OrientacionDesarrolloHumano__c}"/>
+                    </td> 
+                </tr>
+            </table>
+        </div>
+        <div>
+            <tr>
+                <td><br/></td>
+            </tr>   
+        </div>
+        <div>
+            <table style="width: 100%; border-collapse: collapse;" >
+                <tr>
+                    <td width="33%" rowspan="6" align="center" style="color: #008DA9; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 120%; font-family: serif;">
+                        <b>Nivel de preferencia y contexto</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Primaria</b>
+                    </td>                      
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Primaria__c}"/>
+                    </td>                
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Secundaria</b> 
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Secundaria__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                       <b>&nbsp;Preparatoria</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Secundaria__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Urbano</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Urbana__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Rural</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.Rural__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        <b>&nbsp;Recomendación RyS</b>
+                    </td>
+                    <td width="33%" align="left" style="color: #000000; border: solid 1px #BDBDBD; font-style: Franklin Gothic Book; font-size: 80%; font-family: serif;">
+                        &nbsp;<apex:outputField value="{!Contact.RecomendacionRyS__c}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </apex:form>
+</apex:page>

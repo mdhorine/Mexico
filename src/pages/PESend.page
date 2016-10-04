@@ -1,0 +1,41 @@
+<apex:page sidebar="false" showHeader="false" contentType="text/html">
+	<head>
+		<style type="text/css">
+			.labels {
+				color: #000066;
+				font-family: Arial;
+				font-weight: bold;
+				font-size: 18;
+			}
+		</style>
+	</head>
+	<apex:form >
+		<table style="width: 100%;">
+			<tr>
+				<td><br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br /></td>
+			</tr>
+			<tr>
+				<td align="center">
+					<apex:image id="theImage" value="{!$Resource.Logo}" width="170" height="65" /> <br /> <br />
+				</td>
+			</tr>
+			<tr>
+				<td align="center" style="font-weight: bold;">
+					THANK YOU!
+				</td>
+			</tr>
+			<tr>
+				<td class="labels" align="center">Teach for Mexico's recruitment and selection team has received your application, you will 
+				receive a confirmation email shortly. Please refer to the activities calendar with the incoming important dates for the selection process.</td>
+			</tr>
+			<tr>
+				<td> <br /><br /><br /><br /><br /><br /> </td>
+			</tr>
+		</table>
+	</apex:form>
+</apex:page>
